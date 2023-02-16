@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar bg-light fixed-top">
       <div className="container-fluid">
-        <a className="navbar-brand p-2" href="#">
+        <a className="navbar-brand p-2" href="/">
           <img src={logo} />
         </a>
         <button
@@ -37,7 +37,7 @@ const NavBar = () => {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3 ">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="/">
                   <img src={logo} />
                 </a>
               </li>
@@ -45,43 +45,43 @@ const NavBar = () => {
                 <a
                   className="nav-link text-light active"
                   aria-current="page"
-                  href="#"
+                  href="/"
                 >
                   Home
                 </a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/aboutus">
                   Our Approach
                 </a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/services">
                   Services
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/products">
                   Products
                 </a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/careers">
                   Careers
                 </a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/team">
                   Our Team
                 </a>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-light" aria-current="page" href="#">
+                <a className="nav-link text-light" aria-current="page" href="/contactus">
                   Contact Us
                 </a>
               </li>

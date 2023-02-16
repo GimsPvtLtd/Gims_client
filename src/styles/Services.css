@@ -1,0 +1,44 @@
+.bannerser-sec {
+    height: 32vh;
+    background-position: bottom;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img-top{height: 320px;}
+.modal-header{border: 0;}
+.modal-body img{height: 200px;}
+.modal-body {padding-top: 0;}
+div#myModal {
+    padding: 0 !important;
+}
+.close {
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 0.5;
+    color: var(--font1) !important;
+       opacity: 1;
+}
+@media (max-width: 768px){
+.nav-item .txt-3-dp{font-size: 22px !important;}
+.txt-3-wt{font-size: 20px !important;}
+}
+@media (max-width: 767px){
+.bannerser-sec br{display: none;}
+}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 735px;
+}
+.modal-content {
+    padding: 10px;
+}
+}
+@media (max-width: 575px){
+.modal-dialog {
+    position: absolute;
+    bottom: 0;
+}
+}

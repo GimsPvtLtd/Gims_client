@@ -1,3 +1,10 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+}
 :root{
     --primary: #0044FF;
     --secondary: #E8E8E8;
@@ -27,9 +34,8 @@ body {
   font-weight: 400;
   background: #fff;
   -webkit-font-smoothing: antialiased;
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
-
 @font-face {
   font-family: "Rajdhani";
   src: url("../assets/fonts/Rajdhani-Regular.eot") format("eot"),
@@ -138,10 +144,110 @@ h6 {
 .btn-close{
     background-color: #fff;
 }
+.body-sm{
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--font2);
+}
+
+.body-xs{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--font2);
+}
+
+.body-bold{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: var(--black);
+}
+
+.body-bold-2{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  color: var(--font2);
+}
+
+.body-semi{
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--font1);
+}
+
+.txt-mdm{
+  font-size: 25px;
+  line-height: 32px;
+  font-weight: 500;
+  color: var(--font2);
+}
 
 a:hover,
 a:focus,
 a:visited {
   text-decoration: none;
   outline: none;
+}
+
+@media screen and (max-width: 768px){
+  .banner-sec{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: inherit;
+    margin-top: 35px;
+  }
+  a.navbar-brand.logo img {
+    height: 40px;
+  }
+}
+.btn-style{
+  padding: 10px 15px;
+  border: 1px solid var(--primary);
+  transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+  -webkit-transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+}
+.btn-style img, .btn-style-2 img{
+  transform: translate(2px);
+  transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+  -webkit-transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+}
+.btn-style:hover img, .btn-style-2:hover img{
+  transform: translate(10px);
+  transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+  -webkit-transition: all 0.35s cubic-bezier(0.12, 0.75, 0.4, 1);
+}
+.btn-1{
+  background: var(--primary);
+  color: var(--white);
+}
+.btn-1-1{
+  color: var(--primary);
+}
+.btn-1:hover{
+  background: var(--font2);
+  color: var(--white);
+  border-color: var(--font2);
+}
+.btn-2{
+  color: var(--white);
+}
+.btn-2:hover, .btn-1-1:hover{
+  background: var(--primary);
+  color: var(--white);
+}
+.btn-3{
+  background: var(--primary);
+  color: var(--white);
+}
+.btn-3:hover{
+  background: var(--font2);
+  color: var(--white);
+  border-color: var(--font2);
+}
+.card-body .banner-links {
+    margin: 13px 0 5px;
 }

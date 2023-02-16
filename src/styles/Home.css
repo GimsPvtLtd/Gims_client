@@ -1,4 +1,4 @@
-.nav-item .nav-link:hover {
+.offcanvas-body ul .nav-item .nav-link:hover {
   transform: translateX(5px);
   -webkit-transform: translateX(5px);
 }

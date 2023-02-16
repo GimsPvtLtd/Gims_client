@@ -1,0 +1,34 @@
+.main-form form .banner-links button{
+    padding: 10px 20px;
+    height: 47px;
+}
+.main-form form input{
+    height: 58px;
+    color: var(--black);
+    border: 1px solid var(--primary);
+    border-radius: 0;
+}
+.main-form form textarea{
+    color: var(--black);
+    border: 1px solid var(--primary);
+    border-radius: 0;
+}
+.main-form form input::placeholder, .main-form form textarea::placeholder{
+    color: var(--black);
+}
+.form-control:focus, .form-control:hover {
+    color: var(--font2);
+    background-color: #fff;
+    border-color: transparent;
+    outline: 0;
+    box-shadow: 0rem 0rem 0.5rem 0.1rem var(--font1);
+    border-radius: 3px;
+}
+
+.interest-sec{
+    background-color: var(--secondary);
+}
+
+@media screen and (max-width: 768px){
+    
+}

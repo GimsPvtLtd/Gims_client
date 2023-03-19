@@ -6,8 +6,56 @@ import ozcare from "../assets/Home/oz-care.png";
 import desktop from "../assets/Home/desktop-3d.png";
 import nextbreakout from "../assets/Home/next-breakout.png";
 import Footer from "./Footer";
+import { Product } from "../utils";
+
 
 const Products = () => {
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: "http://localhost:8000/products",
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        setData(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
+
+  const pe = data.filter((product: Product) => {
+    if (product.type === "Product Engineering") {
+      return true;
+    }
+    return false;
+  });
+
+  const pd = data.filter((product: Product) => {
+    if (product.type === "Product Design") {
+      return true;
+    }
+    return false;
+  });
+
+  const inv = data.filter((product: Product) => {
+    if (product.type === "Innovations") {
+      return true;
+    }
+    return false;
+  });
+
+  const manufact = data.filter((product: Product) => {
+    if (product.type === "Manufacturing Solutions") {
+      return true;
+    }
+    return false;
+  });
+
   return (
     <Fragment>
       <NavBar />
@@ -25,10 +73,9 @@ const Products = () => {
         </div>
       </section>
 
-      <section className="tab-sec pb-5">
-        <div className="container">
+      <section className="tab-sec pb-5 prod-sec">
+        <div className="row">
           <div className="row align-items-center">
-            <div className="col-xl-12 col-lg-12 col-md-12 col-12">
               {/* <!-- Nav Tabs --> */}
               <div className="tab-main">
                 <div className="wrap-tab">
@@ -92,125 +139,77 @@ const Products = () => {
               </div>
               <div className="tab-content" id="nav-tabContent">
                 <div
-                  className="container tab-pane fade show active"
+                  className="tab-pane fade show active product-row"
                   id="nav-menu1"
                   role="tabpanel"
                   aria-labelledby="nav-menu1-tab"
                   tabIndex={0}
                 >
-                  <div className="row justify-content-center">
+                  <div className="container">
+                  <div className="row justify-content-center pb-5">
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            oz care provides custom solution for sterlization
-                            and real time decontamination in remote and area
-                            specified applications like hospital.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      {pe
+                        .filter((_, ind) => {
+                          if (ind % 2 == 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5" key={product.id}>
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5 negative-sec">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      {pe
+                        .filter((_, ind) => {
+                          if (ind % 2 != 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
+                  </div>
+                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -220,122 +219,68 @@ const Products = () => {
                   tabIndex={0}
                 >
                   <div className="row justify-content-center">
-                    <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={nextbreakout} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="#" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5">
+                      {pd
+                        .filter((_, ind) => {
+                          if (ind % 2 == 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5 negative-sec">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our=approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a href="/aboutus" className="btn-style-2">
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {pd
+                        .filter((_, ind) => {
+                          if (ind % 2 != 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
+                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -346,136 +291,67 @@ const Products = () => {
                 >
                   <div className="row justify-content-center">
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {inv
+                        .filter((_, ind) => {
+                          if (ind % 2 == 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5 negative-sec">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.htmhttp://gimsindustry.com/our_approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {inv
+                        .filter((_, ind) => {
+                          if (ind % 2 != 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
+                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -486,143 +362,72 @@ const Products = () => {
                 >
                   <div className="row justify-content-center">
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {manufact
+                        .filter((_, ind) => {
+                          if (ind % 2 == 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                     <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5 negative-sec">
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={desktop} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">
-                            Desktop 3D printing system
-                          </p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.htmhttp://gimsindustry.com/our_approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card mt-5">
-                        <img className="card-img-top" src={ozcare} />
-                        <div className="card-body">
-                          <p className="txt-3-bold">OZ Care</p>
-                          <p className="body-bold py-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse lacus ipsum, tincidunt eget varius
-                            nec, tincidunt ac ipsum. Nam sollicitudin gravida
-                            bibendum.
-                          </p>
-                          <div className="banner-links">
-                            <a
-                              href="http://gimsindustry.com/our-approach.html"
-                              className="btn-style-2"
-                            >
-                              Learn More <FaArrowRight />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    {manufact
+                        .filter((_, ind) => {
+                          if (ind % 2 != 0) {
+                            return true;
+                          }
+                          return false;
+                        })
+                        .map((product: Product) => {
+                          return (
+                            <div className="card mt-5">
+                              <img
+                                className="card-img-top"
+                                src={`http://localhost:8000/products/${product.image}`}
+                              />
+                              <div className="card-body">
+                                <p className="txt-3-bold">{product.name}</p>
+                                <p className="body-bold py-2 product-descrip">
+                                  {product.description}
+                                </p>
+                                <div className="banner-links">
+                                  <a href={`/product/${product.id}`} className="btn-style-2">
+                                    Learn More <FaArrowRight />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
+                  <Footer />
                 </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
-      <Footer />
     </Fragment>
   );
 };

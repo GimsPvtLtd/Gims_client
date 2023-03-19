@@ -1,0 +1,136 @@
+.bannerprodpage-sec {
+  background-image: url("../assets/Aboutus/banner.png") !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: inherit;
+  margin-top: 60px;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productPagebg {
+  background-image: url("../assets/Home/section3.png");
+  height: 50vh;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+.clients .card {
+  background: transparent !important;
+  border-radius: 6px !important;
+}
+
+.clients img {
+  background: transparent !important;
+  border-radius: 6px !important;
+  height: 350px;
+  width: 50%;
+}
+
+.clients .carousel-item{
+  background: #fff;
+  text-align: left;
+}
+.owl-item.active.center {
+  transform: scale(1.5);
+}
+
+.clients .owl-carousel .owl-dots.disabled,
+.clients .owl-carousel .owl-nav.disabled {
+  display: block;
+  visibility: visible;
+}
+
+/*Specs sec*/
+.specs-sec table td {
+  font-size: 25px;
+  line-height: 32px;
+  font-weight: 500;
+  color: var(--font1);
+}
+.specs-sec table tbody tr:first-child td {
+  border-top: 0;
+}
+.specs-sec table tbody tr:last-child td {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/*Accordion FAQ sec*/
+#main {
+  margin: 20px 0;
+}
+.accordion .card .card-header {
+  margin-bottom: 0;
+  background: transparent;
+}
+#main #faq .card {
+  margin-bottom: 30px;
+  border: 1px solid var(--primary);
+}
+
+#main #faq .card .card-header {
+  border: 0;
+  border-radius: 2px;
+  padding: 0;
+}
+
+#main #faq .card .card-header .btn-header-link {
+  color: #fff;
+  display: block;
+  text-align: left;
+  background: transparent;
+  color: #222;
+  padding: 20px;
+}
+#main #faq .card .card-header{
+  display: flex;
+  flex-direction: column;
+}
+/* #main #faq .card .card-header .btn-header-link:after {
+  content: "\f107" !important;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  float: right;
+} */
+
+#main #faq .card .card-header .btn-header-link.collapsed {
+  background: transparent;
+  color: #000;
+}
+
+#main #faq .card .card-header .btn-header-link.collapsed:after {
+  content: "\f106";
+}
+
+#main .btn.focus,
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0 rgb(0 123 255 / 25%);
+}
+#main .collapse,
+#main .card-body,
+#main .collapse.show {
+  background: transparent;
+}
+
+@media (max-width: 600px) {
+  .specs-sec table td {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 500;
+    color: var(--font1);
+  }
+  #main .body-bold-2 {
+    font-size: 16px;
+  }
+  .clients .owl-carousel .carousel-item {
+    transform: scale(1);
+  }
+  .owl-item.active.center {
+    transform: scale(1);
+  }
+}

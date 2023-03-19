@@ -43,6 +43,15 @@
     background: transparent !important;
     border: 1px solid var(--border);
 }
+
+.modal-body .card{
+    width: 100%;
+}
+.modal-body .card-body{
+    background: #e8e8e8 !important;
+    border: 0px solid var(--border) !important;
+    border-radius: 5px ;
+}
 .industry-sec ul, .modal-body ul{position: relative;}
 .industry-sec ul li, .modal-body ul li{color: var(--primary);display: inline-block;padding-left: 15px;}
 .industry-sec ul li:nth-child(2), .modal-body ul li:nth-child(2){padding-left: 30px;}

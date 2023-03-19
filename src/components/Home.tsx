@@ -27,15 +27,19 @@ const Home = () => {
                 by the laws of Physics.
               </h3>
               <div className="banner-links py-3">
+                <a href="/products">
                 <button type="button" className="btn btn-primary">
                   Explore Products <FaArrowRight />
                 </button>
-                <button
+                </a>
+               <a href="/aboutus">
+               <button
                   type="button"
                   className="btn btn-outline-primary text-light"
                 >
                   About Us <FaArrowRight />
                 </button>
+               </a>
               </div>
             </div>
           </div>
@@ -187,9 +191,11 @@ const Home = () => {
               </div>
 
               <div className="banner-links py-3">
+                <a href="/products">
                 <button type="button" className="btn btn-primary">
                   Explore All Products <FaArrowRight className="ms-2" />
                 </button>
+                </a>
               </div>
             </div>
           </div>

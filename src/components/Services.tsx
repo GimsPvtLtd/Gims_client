@@ -1,10 +1,103 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import NavBar from "./NavBar";
 import "../styles/Services.css";
 import dummy from "../assets/services/dummy.png";
 import Footer from "./Footer";
-
+import { Service } from "../utils";
+interface FormData {
+  name: string;
+  designation: string;
+  email: string;
+  companyName: string;
+  address: string;
+  mobileNumber: string;
+  fieldOfService: string;
+  requirements: string;
+  file: File | Blob;
+}
 const Services = () => {
+  const [data, setData] = useState<Service[]>([]);
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    designation: "",
+    companyName: "",
+    address: "",
+    mobileNumber: "",
+    fieldOfService: "",
+    requirements: "",
+    file: new File([""], ""),
+  });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.target.files &&
+      setFormData({
+        ...formData,
+        file: event.target.files[0],
+      });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    var axios = require("axios");
+    var FormData = require("form-data");
+    var data = new FormData();
+    data.append("name", formData.name);
+    data.append("designation", formData.designation);
+    data.append("companyname", formData.companyName);
+    data.append("mobile", formData.mobileNumber);
+    data.append("address", formData.address);
+    data.append("fieldofservice", formData.fieldOfService);
+    data.append("requirements", formData.requirements);
+    data.append("requirement", formData.file);
+
+    var config = {
+      method: "post",
+      url: "http://localhost:8000/addrequirement",
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
+
+  React.useEffect(() => {
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: "http://localhost:8000/services",
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        setData(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
+
+  const rnd = data.filter((ser) => {
+    return ser.servicetype === "R&D";
+  });
+  const ma = data.filter((ser) => {
+    return ser.servicetype === "Manufacturing and automation";
+  });
+  const design = data.filter((ser) => {
+    return ser.servicetype === "Design";
+  });
   return (
     <Fragment>
       <NavBar />
@@ -27,115 +120,97 @@ const Services = () => {
         <div className="container-fluid">
           <div className="row">
             {/* <!-- R&D --> */}
-            <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5">
-              <h2 className="txt-2">R&D</h2>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card" data-toggle="modal" data-target="#myModal">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
+            {rnd && rnd.length > 0 && (
+              <Fragment>
+                <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5">
+                  <h2 className="txt-2">R&D</h2>
                 </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
+                {rnd.map((ser) => {
+                  return (
+                    <div
+                      className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5"
+                      key={ser.id}
+                    >
+                      <div
+                        className="card"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                        />
+                        <div className="card-body">
+                          <p className="txt-3-dp text-center">{ser.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Fragment>
+            )}
 
             {/* <!-- Manufacturing and automation --> */}
-            <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5 pt-3">
-              <h2 className="txt-2">Manufacturing and automation</h2>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
+            {ma && ma.length > 0 && (
+              <Fragment>
+                <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5 pt-3">
+                  <h2 className="txt-2">Manufacturing and automation</h2>
                 </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
+                {ma.map((ser) => {
+                  return (
+                    <div
+                      className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5"
+                      key={ser.id}
+                    >
+                      <div
+                        className="card"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                        />
+                        <div className="card-body">
+                          <p className="txt-3-dp text-center">{ser.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Fragment>
+            )}
 
             {/* <!-- Design --> */}
-            <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5 pt-3">
-              <h2 className="txt-2">Design</h2>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
+            {design && design.length > 0 && (
+              <Fragment>
+                <div className="col-xl-12 col-lg-12 col-md-12 col-12 pb-5 pt-3">
+                  <h2 className="txt-2">Design</h2>
                 </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5">
-              <div className="card">
-                <img className="card-img-top" src={dummy} />
-                <div className="card-body">
-                  <p className="txt-3-dp">Personalised Hot wire cutter</p>
-                </div>
-              </div>
-            </div>
+                {design.map((ser) => {
+                  return (
+                    <div
+                      className="col-xl-3 col-lg-6 col-md-6 col-12 pb-5"
+                      key={ser.id}
+                    >
+                      <div
+                        className="card"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                        />
+                        <div className="card-body">
+                          <p className="txt-3-dp text-center">{ser.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Fragment>
+            )}
           </div>
         </div>
       </section>
@@ -175,22 +250,182 @@ const Services = () => {
       <section className="industry-sec pb-5 px-5">
         <div className="container">
           <div className="row">
-            {/* <!-- R&D --> */}
             <div className="col-xl-6 col-lg-6 col-md-12 col-12 pb-5">
               <h2 className="txt-3-dp">
                 Have a project you think we could work our magic in?
               </h2>
             </div>
-            <div className="col-xl-6 col-lg-6 col-md-12 col-12 pb-5 text-center">
-              <div className="banner-links pt-2">
-                <a href="#" className="btn-style btn-3">
-                  Submit requirements
-                </a>
+            <div className="col-xl-6 col-lg-6 col-md-12 col-12 pb-5">
+              <div className="banner-links">
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Submit requirements
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <div>
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex={-1}
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
+                  Submit Requirements
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="modal-body">
+                  <div className="mb-1">
+                    <label htmlFor="name" className="form-label">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      id="name"
+                      aria-describedby="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="cname" className="form-label">
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="companyName"
+                      aria-describedby="cname"
+                      value={formData.companyName}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="designation" className="form-label">
+                      Designation
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="designation"
+                      aria-describedby="designation"
+                      value={formData.designation}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="email" className="form-label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      aria-describedby="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="number" className="form-label">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="mobileNumber"
+                      aria-describedby="mobile"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="name" className="form-label">
+                      Address
+                    </label>
+                    <input
+                      className="form-control"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="field" className="form-label">
+                      Field of Service
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="fieldOfService"
+                      aria-describedby="mobile"
+                      value={formData.fieldOfService}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="Requirements" className="form-label">
+                      Requirements
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="requirements"
+                      aria-describedby="requirements"
+                      value={formData.requirements}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label htmlFor="field" className="form-label">
+                      Any relevant documents
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <Footer />
     </Fragment>

@@ -1,64 +1,53 @@
 import React, { Fragment } from "react";
-import NavBar from "./NavBar";
 import "../styles/Team.css";
-import Teammembers from "./Teammembers";
+import { FaEnvelope, FaLinkedin, FaTrash, FaWhatsapp } from "react-icons/fa";
+import { details } from "../utils";
 
-// interface details {
-//   name?: string;
-//   role?: string;
-//   image?: string;
-//   industryexperience?: any;
-//   researchexperience?: any;
-//   designskills?: any;
-//   projectmanagement?: any;
-//   creativity?: any;
-//   programmingskills?: any;
-//   industryknowledge?: any;
-//   manufacturing?: any;
-//   selfmotivation?: any;
-//   stamina?: any;
-//   reflex?: any;
-//   intelligence?: any;
-//   healingfactor?: any;
-//   sarcasm?: any;
-//   speed?: any;
-//   heroimg?: string;
-// }
+interface Props {
+  isAdmin?: boolean;
+}
 
-const Team = () => {
-  // var axios = require("axios");
-  // const [data, setData] = React.useState([]);
-  // var config = {
-  //   method: "get",
-  //   url: "http://localhost:8000/teammembers",
-  //   headers: {},
-  // };
+const Teammembers = ({ isAdmin }: Props) => {
+  const [data, setData] = React.useState([]);
 
-  // axios(config)
-  //   .then(function (response: any) {
-  //     setData(response.data);
-  //   })
-  //   .catch(function (error: any) {
-  //     console.log(error);
-  //   });
+  React.useEffect(() => {
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: "http://localhost:8000/teammembers",
+      headers: {},
+    };
 
+    axios(config)
+      .then(function (response: any) {
+        setData(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
+
+  const deletemember = (id?: number) => {
+    var axios = require("axios");
+
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/deletemember/${id}`,
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        console.log(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   return (
     <Fragment>
-      <NavBar />
-      <section className="bannerteam-sec">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-12 col-lg-12 col-md-12 col-12 text-center">
-              <h2 className="txt-2 pb-3">Meet Our Team</h2>
-              <p className="txt-3-dp">
-                If everyone is moving forward together,
-                <br /> then success takes care of itself!
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* <section className="industry-secteam pb-5">
+      <section className="industry-secteam pb-5">
         <div className="container">
           <div className="row">
             {data?.map((detail: details) => (
@@ -76,6 +65,7 @@ const Team = () => {
                       <p className="txt-3-dp">{detail?.role?.toUpperCase()}</p>
                     </div>
                     <div className="back-flip">
+                      {/* Nav tabs */}
                       <nav>
                         <div className="nav nav-tabs">
                           <button
@@ -104,6 +94,17 @@ const Team = () => {
                           </button>
                         </div>
                       </nav>
+                      {isAdmin && (
+                        <div className="row m-1">
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deletemember(detail.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      )}
+                      {/* Tab panes */}
                       <div
                         className="tab-content"
                         id="nav-tabContent"
@@ -322,16 +323,52 @@ const Team = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="card-footer">
+                      <div className="row justify-content-center">
+                        {detail.email && (
+                          <div className="col-xl-4 col-lg-4 col-md-4 col-4 text-lg-left text-center">
+                            <a
+                              href={`mailto:${detail.email}`}
+                              className="body-bold-2"
+                            >
+                              <FaEnvelope className="text-danger display-6" />
+                            </a>
+                          </div>
+                        )}
+                        {detail.linkedin && (
+                          <div className="col-xl-4 col-lg-4 col-md-4 col-4 text-lg-left text-center">
+                            <a
+                              href={`${detail.linkedin}`}
+                              target={"_blank"}
+                              className="body-bold-2"
+                            >
+                              <FaLinkedin className="text-primary display-6" />
+                            </a>
+                          </div>
+                        )}
+
+                        {detail.number && (
+                          <div className="col-xl-4 col-lg-4 col-md-4 col-4 text-lg-left text-center">
+                            <a
+                              href={`tel:${detail.number}`}
+                              target={"_blank"}
+                              className="body-bold-2"
+                            >
+                              <FaWhatsapp className="text-success display-6" />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Fragment>
             ))}
           </div>
         </div>
-      </section> */}
-      <Teammembers />
+      </section>
     </Fragment>
   );
 };
 
-export default Team;
+export default Teammembers;

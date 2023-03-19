@@ -5,7 +5,7 @@ import logo from "../assets/Home/logo.svg";
 const Footer = () => {
   return (
     <Fragment>
-      <div className="footer-sec pt-5 pb-4">
+      <footer className="footer-sec pt-5 pb-4">
         <div className="container">
           <div className="row">
             <div className="col-xl-6 col-lg-6 col-md-12 col-12">
@@ -60,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      </div>
+      </footer>
       
     </Fragment>
   );

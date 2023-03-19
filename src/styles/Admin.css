@@ -1,0 +1,8 @@
+.banneradmin-sec{
+    height: 32vh;
+    background-position: bottom;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

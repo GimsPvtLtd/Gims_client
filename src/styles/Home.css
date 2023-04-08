@@ -8,6 +8,9 @@
   color: white;
 }
 
+text{
+  font-size: 5px !important;
+}
 .banner-sec {
   background-image: url("../assets/Home/product-design-bnr.png");
   background-size: cover;

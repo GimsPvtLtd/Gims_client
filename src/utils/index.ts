@@ -116,6 +116,7 @@ export interface Timesheet {
   updatedon?: string;
   userid?: string;
   description?: string;
+  activity: string;
 }
 
 export interface Leave {

@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import "../styles/Team.css";
 import { FaEnvelope, FaLinkedin, FaTrash, FaWhatsapp } from "react-icons/fa";
 import { details } from "../utils";
+import { Usercontext } from "../utils/Context";
 
 interface Props {
   isAdmin?: boolean;
@@ -9,7 +10,7 @@ interface Props {
 
 const Teammembers = ({ isAdmin }: Props) => {
   const [data, setData] = React.useState([]);
-
+  const { auth } = useContext(Usercontext);
   React.useEffect(() => {
     var axios = require("axios");
     var config = {
@@ -33,7 +34,9 @@ const Teammembers = ({ isAdmin }: Props) => {
     var config = {
       method: "delete",
       url: `http://localhost:8000/deletemember/${id}`,
-      headers: {},
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)

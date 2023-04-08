@@ -1,12 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
+import { Usercontext } from "../utils/Context";
 
 const Imageupload = () => {
   const { id } = useParams();
   const [faq, setFaq] = useState([{ key: "", value: "" }]);
   const [file, setFile] = useState<File[]>([new File([""], "")]);
-  console.log(file);
+  const { auth } = useContext(Usercontext);
   const handleSpecInput = ({
     ind,
     event,
@@ -46,6 +47,7 @@ const Imageupload = () => {
         url: "http://localhost:8000/upload/faq",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          authorization: auth?.token,
         },
         data: data,
       };
@@ -66,7 +68,7 @@ const Imageupload = () => {
     var axios = require("axios");
     var FormData = require("form-data");
     var data = new FormData();
-    data.append("productId",id)
+    data.append("productId", id);
     file.map((file) => {
       data.append("uploadedImg", file);
     });
@@ -74,6 +76,9 @@ const Imageupload = () => {
       method: "post",
       url: "http://localhost:8000/upload/image",
       data: data,
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)

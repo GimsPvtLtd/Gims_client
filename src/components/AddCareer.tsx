@@ -1,5 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { career } from "../utils";
+import Moment from "moment";
+import { Usercontext } from "../utils/Context";
 interface FormData {
   title?: string;
   description?: string;
@@ -22,7 +25,53 @@ const AddCareer = () => {
     location: "",
   });
   const [skills, setSkills] = useState([""]);
+  const [data, setData] = useState<career[]>([]);
+  const { auth } = useContext(Usercontext);
 
+  useEffect(() => {
+    var axios = require("axios");
+
+    var config = {
+      method: "get",
+      url: "http://localhost:8000/careers",
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        setData(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
+
+  const handleClick = (id: any, status: any) => {
+    var axios = require("axios");
+    var qs = require("qs");
+    var data = qs.stringify({
+      id,
+      status,
+    });
+    var config = {
+      method: "put",
+      url: "http://localhost:8000/career",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: auth?.token,
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   const handleSkillInput = ({
     ind,
     event,
@@ -68,6 +117,7 @@ const AddCareer = () => {
       url: "http://localhost:8000/addcareer",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        authorization: auth?.token,
       },
       data: data,
     };
@@ -241,6 +291,47 @@ const AddCareer = () => {
           </button>
         </div>
       </form>
+      <h2>Careers</h2>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">SI.NO</th>
+            <th scope="col">Title</th>
+            <th scope="col">Domain</th>
+            <th scope="col">No of registrantions</th>
+            <th scope="col">Posted On</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.map((career, ind) => (
+            <tr key={career.id}>
+              <th scope="row">{ind + 1}</th>
+              <td>{career.title}</td>
+              <td>{career.domain}</td>
+              <td>{career.totalregistrants}</td>
+              <td>{Moment(career?.postedon).format("DD-MM-YYYY")}</td>
+              <td>
+                {career.isactive ? (
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleClick(career.id, false)}
+                  >
+                    Make Inactive
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleClick(career.id, true)}
+                  >
+                    Make Active
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Fragment>
   );
 };

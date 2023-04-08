@@ -13,8 +13,57 @@ import Imageupload from "./components/Imageupload";
 import RequirementPage from "./components/RequirementPage";
 import Login from "./components/Login";
 import DisplayTimesheet from "./components/DisplayTimesheet";
+import { Usercontext } from "./utils/Context";
+import Cookies from "universal-cookie";
+import CareerPage from "./components/CareerPage";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/aboutus",
+    element: <AboutUs />,
+  },
+  {
+    path: "/services",
+    element: <Services />,
+  },
+  {
+    path: "/products",
+    element: <Products />,
+  },
+  {
+    path: "/careers",
+    element: <Careers />,
+  },
+  {
+    path: "/contactus",
+    element: <Contactus />,
+  },
+  {
+    path: "/team",
+    element: <Team />,
+  },
+  {
+    path: "/product/:id",
+    element: <ProductPage />,
+  },
+  {
+    path: "/requirement/:id",
+    element: <RequirementPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/career/:id",
+    element: <CareerPage />,
+  },
+]);
+const routerAdmin = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
@@ -60,6 +109,10 @@ const router = createBrowserRouter([
     element: <RequirementPage />,
   },
   {
+    path: "/career/:id",
+    element: <CareerPage />,
+  },
+  {
     path: "/login",
     element: <Login />,
   },
@@ -70,7 +123,22 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  const [auth, setRole] = React.useState<any | null>();
+  const cookies = new Cookies();
+
+  React.useEffect(() => {
+    if (cookies.get("auth")) {
+      let auth2 = cookies.get("auth");
+      setRole(auth2);
+    }
+  }, []);
+  return (
+    <Usercontext.Provider value={{ auth, setRole }}>
+      {/* <RouterProvider router={router} /> */}
+      {!auth && <RouterProvider router={router} />}
+      {auth && <RouterProvider router={routerAdmin} />}
+    </Usercontext.Provider>
+  );
 };
 
 export default App;

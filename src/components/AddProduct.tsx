@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import React, { Fragment, useState, useContext } from "react";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { Product } from "../utils";
+import { Usercontext } from "../utils/Context";
 
 const AddProduct = () => {
   const [data, setData] = React.useState([]);
@@ -24,17 +25,11 @@ const AddProduct = () => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [description, setDescrip] = useState("");
-  const [design, setDesign] = useState("");
-  const [motor, setMotor] = useState("");
-  const [waterspeed, setWaterspeed] = useState("");
-  const [dimensions, setDimesion] = useState("");
-  const [load, setLoad] = useState("");
-  const [construction, setConstruction] = useState("");
   const [techspec, setTechspec] = useState("");
   const [image, setImg] = useState("");
   const [file, setFile] = useState("");
   const [spec, setSpec] = useState([{ key: "", value: "" }]);
-
+  const { auth } = useContext(Usercontext);
   const handleSpecInput = ({
     ind,
     event,
@@ -63,12 +58,6 @@ const AddProduct = () => {
     data.append("name", name);
     data.append("type", type);
     data.append("description", description + des);
-    data.append("design", design);
-    data.append("motor", motor);
-    data.append("waterspeeds", waterspeed);
-    data.append("dimensions", dimensions);
-    data.append("load", load);
-    data.append("construction", construction);
     data.append("technicalspecs", techspec);
     data.append("uploadedproduct", image);
     data.append("uploadedproduct", file);
@@ -77,6 +66,29 @@ const AddProduct = () => {
       method: "post",
       url: "http://localhost:8000/addproduct",
       data: data,
+      headers: {
+        authorization: auth?.token,
+      },
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
+  const handledelete = (id: any) => {
+    var axios = require("axios");
+
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/product/${id}`,
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -220,90 +232,6 @@ const AddProduct = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="design" className="form-label">
-                Design
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="design"
-                value={design}
-                onChange={(e) => {
-                  setDesign(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="motor" className="form-label">
-                Motor
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="motor"
-                value={motor}
-                onChange={(e) => {
-                  setMotor(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="waterspeed" className="form-label">
-                Waterspeed
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="waterspeed"
-                value={waterspeed}
-                onChange={(e) => {
-                  setWaterspeed(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="dimensions" className="form-label">
-                Dimensions
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="dimensions"
-                value={dimensions}
-                onChange={(e) => {
-                  setDimesion(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="load" className="form-label">
-                Maximum Load
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="load"
-                value={load}
-                onChange={(e) => {
-                  setLoad(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
-              <label htmlFor="construction" className="form-label">
-                Construction
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="construction"
-                value={construction}
-                onChange={(e) => {
-                  setConstruction(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
               <label htmlFor="techspec" className="form-label">
                 Technical Specification
               </label>
@@ -373,7 +301,22 @@ const AddProduct = () => {
                   <th scope="row">{ind + 1}</th>
                   <td>{product.name}</td>
                   <td>{product.type}</td>
-                  <td><a className="btn btn-primary" href={`/upload/${product.id}`}>Upload Images/FAQs</a></td>
+                  <td>
+                    <div className="row">
+                      <a
+                        className="btn btn-primary col-6 mx-2"
+                        href={`/upload/${product.id}`}
+                      >
+                        Upload Images/FAQs
+                      </a>
+                      <button
+                        className="btn btn-danger col-2 mx-2"
+                        onClick={() => handledelete(product.id)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
           </tbody>

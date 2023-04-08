@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
+import { Usercontext } from "../utils/Context";
 
 const AddService = () => {
   const [type, setType] = useState("");
   const [file, setFile] = useState<File[]>([new File([""], "")]);
   const [filename, setFileName] = useState<string[]>([""]);
-
+  const { auth } = useContext(Usercontext);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     var names: string = "";
@@ -26,6 +27,9 @@ const AddService = () => {
       method: "post",
       url: "http://localhost:8000/addservice",
       data: data,
+      headers:{
+      authorization: auth?.token,
+      }
     };
 
     axios(config)
@@ -34,7 +38,7 @@ const AddService = () => {
         window.location.reload();
       })
       .catch(function (error: any) {
-        console.log(error);
+        alert(error.message);
       });
   };
   const handleImgInput = ({ ind, event }: { ind: number; event: any }) => {

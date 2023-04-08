@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import banner from "../assets/Careers/banner2x.png";
 import Footer from "./Footer";
 import { career } from "../utils";
+import { FaArrowRight } from "react-icons/fa";
 
 interface Resumeform {
   name?: string;
@@ -12,12 +13,7 @@ interface Resumeform {
 }
 const Careers = () => {
   const [data, setData] = useState<career[]>([]);
-  const [formData, setFormData] = useState<Resumeform>({
-    name: "",
-    email: "",
-    mobile: "",
-  });
-  const [file, setFile] = useState<File>();
+
   useEffect(() => {
     var axios = require("axios");
 
@@ -36,47 +32,6 @@ const Careers = () => {
       });
   }, []);
 
-  const handleChange = (event: any) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (
-    e: any,
-    id: any,
-    careertitle: any,
-    careerdomain: any
-  ) => {
-    e.preventDefault();
-    var axios = require("axios");
-    var FormData = require("form-data");
-    var data = new FormData();
-    data.append("name", formData.name);
-    data.append("careerId", id);
-    data.append("email", formData.email);
-    data.append("mobilenumber", formData.mobile);
-    data.append("careertitle", careertitle);
-    data.append("careerdomain", careerdomain);
-    data.append("resume", file);
-
-    var config = {
-      method: "post",
-      url: "http://localhost:8000/uploadresume",
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response: any) {
-        alert(JSON.stringify(response.data.message));
-        window.location.reload();
-      })
-      .catch(function (error: any) {
-        console.log(error);
-      });
-  };
   const pe = data.filter((career: career) => {
     if (career.domain === "Product Engineering") {
       return true;
@@ -280,165 +235,17 @@ const Careers = () => {
                                   <p className="body-bold py-2">
                                     {career.description}
                                   </p>
-                                  <ul className="mt-3">
-                                    <li>{career.type}</li>
-                                    <li>{career.experience} experience</li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div
-                                className="modal fade"
-                                id={`${career.id}`}
-                                tabIndex={-1}
-                                aria-labelledby="exampleModalLabel"
-                                aria-hidden="true"
-                              >
-                                <div className="modal-dialog ">
-                                  <div className="modal-content border">
-                                    <div className="modal-header">
-                                      <h4 className="modal-title txt-3-dp">
-                                        Role
-                                      </h4>
-                                      <button
-                                        type="button"
-                                        className="close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        &times;
-                                      </button>
-                                    </div>
-
-                                    <div className="modal-body">
-                                      <h2 className="txt-2">{career.title}</h2>
-                                      <ul className="mt-3">
-                                        <li>{career.type}</li>
-                                        <li>{career.experience} experience</li>
-                                      </ul>
-                                      <div className="row align-content-center">
-                                        <div className="row col-xl-6 col-lg-6 col-md-6 col-12 pt-3 align-content-center">
-                                          <p className="txt-3-dp py-3">
-                                            Description
-                                          </p>
-                                          <p className="body-bold pb-2">
-                                            {career.description}
-                                          </p>
-                                          <div className="skills">
-                                            <p className="txt-3-dp pb-2">
-                                              Skills
-                                            </p>
-                                            {career.skills
-                                              ?.split("@#$@ ")
-                                              .map(
-                                                (skill: string) =>
-                                                  skill && (
-                                                    <p className="body-bold">
-                                                      - {skill}
-                                                    </p>
-                                                  )
-                                              )}
-                                          </div>
-                                        </div>
-                                        <div className="col-xl-6 col-lg-6 col-md-6 col-12">
-                                          <div
-                                            className="card pt-3"
-                                            style={{ width: "18rem" }}
-                                          >
-                                            <div className="card-body">
-                                              <form
-                                                onSubmit={(e) =>
-                                                  handleSubmit(
-                                                    e,
-                                                    career.id,
-                                                    career.title,
-                                                    career.domain
-                                                  )
-                                                }
-                                              >
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Name
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="name"
-                                                    className="form-control"
-                                                    id="name"
-                                                    aria-describedby="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Email
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="email"
-                                                    className="form-control"
-                                                    id="email"
-                                                    aria-describedby="email"
-                                                    value={formData.email}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Mobile Number
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="mobile"
-                                                    className="form-control"
-                                                    id="mobile"
-                                                    aria-describedby="mobile"
-                                                    value={formData.mobile}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-1">
-                                                  <label className="form-label">
-                                                    Resume
-                                                  </label>
-                                                  <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    name="file"
-                                                    onChange={(e: any) => {
-                                                      setFile(
-                                                        e.target.files[0]
-                                                      );
-                                                    }}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="row justify-content-center">
-                                                  <button
-                                                    type="submit"
-                                                    className="btn btn-primary my-3 col-xl-6 col-lg-6 col-md-6 col-6"
-                                                  >
-                                                    Apply Now
-                                                  </button>
-                                                </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                  <div className="row justify-content-center">
+                                    <ul className="mt-3 col-8">
+                                      <li>{career.type}</li>
+                                      <li>{career.experience} experience</li>
+                                    </ul>
+                                    <a
+                                      href={`/career/${career.id}`}
+                                      className="btn col-2 mt-2"
+                                    >
+                                      Show More <FaArrowRight />
+                                    </a>
                                   </div>
                                 </div>
                               </div>
@@ -473,165 +280,17 @@ const Careers = () => {
                                   <p className="body-bold py-2">
                                     {career.description}
                                   </p>
-                                  <ul className="mt-3">
-                                    <li>{career.type}</li>
-                                    <li>{career.experience} experience</li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div
-                                className="modal fade"
-                                id={`${career.id}`}
-                                tabIndex={-1}
-                                aria-labelledby="exampleModalLabel"
-                                aria-hidden="true"
-                              >
-                                <div className="modal-dialog ">
-                                  <div className="modal-content border">
-                                    <div className="modal-header">
-                                      <h4 className="modal-title txt-3-dp">
-                                        Role
-                                      </h4>
-                                      <button
-                                        type="button"
-                                        className="close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        &times;
-                                      </button>
-                                    </div>
-
-                                    <div className="modal-body">
-                                      <h2 className="txt-2">{career.title}</h2>
-                                      <ul className="mt-3">
-                                        <li>{career.type}</li>
-                                        <li>{career.experience} experience</li>
-                                      </ul>
-                                      <div className="row align-content-center">
-                                        <div className="row col-xl-6 col-lg-6 col-md-6 col-12 pt-3 align-content-center">
-                                          <p className="txt-3-dp py-3">
-                                            Description
-                                          </p>
-                                          <p className="body-bold pb-2">
-                                            {career.description}
-                                          </p>
-                                          <div className="skills">
-                                            <p className="txt-3-dp pb-2">
-                                              Skills
-                                            </p>
-                                            {career.skills
-                                              ?.split("@#$@ ")
-                                              .map(
-                                                (skill: string) =>
-                                                  skill && (
-                                                    <p className="body-bold">
-                                                      - {skill}
-                                                    </p>
-                                                  )
-                                              )}
-                                          </div>
-                                        </div>
-                                        <div className="col-xl-6 col-lg-6 col-md-6 col-12">
-                                          <div
-                                            className="card pt-3"
-                                            style={{ width: "18rem" }}
-                                          >
-                                            <div className="card-body">
-                                              <form
-                                                onSubmit={(e) =>
-                                                  handleSubmit(
-                                                    e,
-                                                    career.id,
-                                                    career.title,
-                                                    career.domain
-                                                  )
-                                                }
-                                              >
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Name
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="name"
-                                                    className="form-control"
-                                                    id="name"
-                                                    aria-describedby="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Email
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="email"
-                                                    className="form-control"
-                                                    id="email"
-                                                    aria-describedby="email"
-                                                    value={formData.email}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Mobile Number
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="mobile"
-                                                    className="form-control"
-                                                    id="mobile"
-                                                    aria-describedby="mobile"
-                                                    value={formData.mobile}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-1">
-                                                  <label className="form-label">
-                                                    Resume
-                                                  </label>
-                                                  <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    name="file"
-                                                    onChange={(e: any) => {
-                                                      setFile(
-                                                        e.target.files[0]
-                                                      );
-                                                    }}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="row justify-content-center">
-                                                  <button
-                                                    type="submit"
-                                                    className="btn btn-primary my-3 col-xl-6 col-lg-6 col-md-6 col-6"
-                                                  >
-                                                    Apply Now
-                                                  </button>
-                                                </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                  <div className="row justify-content-center">
+                                    <ul className="mt-3 col-8">
+                                      <li>{career.type}</li>
+                                      <li>{career.experience} experience</li>
+                                    </ul>
+                                    <a
+                                      href={`/career/${career.id}`}
+                                      className="btn col-2 mt-2"
+                                    >
+                                      Show More <FaArrowRight />
+                                    </a>
                                   </div>
                                 </div>
                               </div>
@@ -666,165 +325,17 @@ const Careers = () => {
                                   <p className="body-bold py-2">
                                     {career.description}
                                   </p>
-                                  <ul className="mt-3">
-                                    <li>{career.type}</li>
-                                    <li>{career.experience} experience</li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div
-                                className="modal fade"
-                                id={`${career.id}`}
-                                tabIndex={-1}
-                                aria-labelledby="exampleModalLabel"
-                                aria-hidden="true"
-                              >
-                                <div className="modal-dialog ">
-                                  <div className="modal-content border">
-                                    <div className="modal-header">
-                                      <h4 className="modal-title txt-3-dp">
-                                        Role
-                                      </h4>
-                                      <button
-                                        type="button"
-                                        className="close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        &times;
-                                      </button>
-                                    </div>
-
-                                    <div className="modal-body">
-                                      <h2 className="txt-2">{career.title}</h2>
-                                      <ul className="mt-3">
-                                        <li>{career.type}</li>
-                                        <li>{career.experience} experience</li>
-                                      </ul>
-                                      <div className="row align-content-center">
-                                        <div className="row col-xl-6 col-lg-6 col-md-6 col-12 pt-3 align-content-center">
-                                          <p className="txt-3-dp py-3">
-                                            Description
-                                          </p>
-                                          <p className="body-bold pb-2">
-                                            {career.description}
-                                          </p>
-                                          <div className="skills">
-                                            <p className="txt-3-dp pb-2">
-                                              Skills
-                                            </p>
-                                            {career.skills
-                                              ?.split("@#$@ ")
-                                              .map(
-                                                (skill: string) =>
-                                                  skill && (
-                                                    <p className="body-bold">
-                                                      - {skill}
-                                                    </p>
-                                                  )
-                                              )}
-                                          </div>
-                                        </div>
-                                        <div className="col-xl-6 col-lg-6 col-md-6 col-12">
-                                          <div
-                                            className="card pt-3"
-                                            style={{ width: "18rem" }}
-                                          >
-                                            <div className="card-body">
-                                              <form
-                                                onSubmit={(e) =>
-                                                  handleSubmit(
-                                                    e,
-                                                    career.id,
-                                                    career.title,
-                                                    career.domain
-                                                  )
-                                                }
-                                              >
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Name
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="name"
-                                                    className="form-control"
-                                                    id="name"
-                                                    aria-describedby="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Email
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="email"
-                                                    className="form-control"
-                                                    id="email"
-                                                    aria-describedby="email"
-                                                    value={formData.email}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Mobile Number
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="mobile"
-                                                    className="form-control"
-                                                    id="mobile"
-                                                    aria-describedby="mobile"
-                                                    value={formData.mobile}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-1">
-                                                  <label className="form-label">
-                                                    Resume
-                                                  </label>
-                                                  <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    name="file"
-                                                    onChange={(e: any) => {
-                                                      setFile(
-                                                        e.target.files[0]
-                                                      );
-                                                    }}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="row justify-content-center">
-                                                  <button
-                                                    type="submit"
-                                                    className="btn btn-primary my-3 col-xl-6 col-lg-6 col-md-6 col-6"
-                                                  >
-                                                    Apply Now
-                                                  </button>
-                                                </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                  <div className="row justify-content-center">
+                                    <ul className="mt-3 col-8">
+                                      <li>{career.type}</li>
+                                      <li>{career.experience} experience</li>
+                                    </ul>
+                                    <a
+                                      href={`/career/${career.id}`}
+                                      className="btn col-2 mt-2"
+                                    >
+                                      Show More <FaArrowRight />
+                                    </a>
                                   </div>
                                 </div>
                               </div>
@@ -859,165 +370,17 @@ const Careers = () => {
                                   <p className="body-bold py-2">
                                     {career.description}
                                   </p>
-                                  <ul className="mt-3">
-                                    <li>{career.type}</li>
-                                    <li>{career.experience} experience</li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div
-                                className="modal fade"
-                                id={`${career.id}`}
-                                tabIndex={-1}
-                                aria-labelledby="exampleModalLabel"
-                                aria-hidden="true"
-                              >
-                                <div className="modal-dialog ">
-                                  <div className="modal-content border">
-                                    <div className="modal-header">
-                                      <h4 className="modal-title txt-3-dp">
-                                        Role
-                                      </h4>
-                                      <button
-                                        type="button"
-                                        className="close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        &times;
-                                      </button>
-                                    </div>
-
-                                    <div className="modal-body">
-                                      <h2 className="txt-2">{career.title}</h2>
-                                      <ul className="mt-3">
-                                        <li>{career.type}</li>
-                                        <li>{career.experience} experience</li>
-                                      </ul>
-                                      <div className="row align-content-center">
-                                        <div className="row col-xl-6 col-lg-6 col-md-6 col-12 pt-3 align-content-center">
-                                          <p className="txt-3-dp py-3">
-                                            Description
-                                          </p>
-                                          <p className="body-bold pb-2">
-                                            {career.description}
-                                          </p>
-                                          <div className="skills">
-                                            <p className="txt-3-dp pb-2">
-                                              Skills
-                                            </p>
-                                            {career.skills
-                                              ?.split("@#$@ ")
-                                              .map(
-                                                (skill: string) =>
-                                                  skill && (
-                                                    <p className="body-bold">
-                                                      - {skill}
-                                                    </p>
-                                                  )
-                                              )}
-                                          </div>
-                                        </div>
-                                        <div className="col-xl-6 col-lg-6 col-md-6 col-12">
-                                          <div
-                                            className="card pt-3"
-                                            style={{ width: "18rem" }}
-                                          >
-                                            <div className="card-body">
-                                              <form
-                                                onSubmit={(e) =>
-                                                  handleSubmit(
-                                                    e,
-                                                    career.id,
-                                                    career.title,
-                                                    career.domain
-                                                  )
-                                                }
-                                              >
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Name
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="name"
-                                                    className="form-control"
-                                                    id="name"
-                                                    aria-describedby="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Email
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="email"
-                                                    className="form-control"
-                                                    id="email"
-                                                    aria-describedby="email"
-                                                    value={formData.email}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="my-1 col-xl-12 col-lg-12 col-md-12 col-12">
-                                                  <label
-                                                    htmlFor="title"
-                                                    className="form-label"
-                                                  >
-                                                    Mobile Number
-                                                  </label>
-                                                  <input
-                                                    type="text"
-                                                    name="mobile"
-                                                    className="form-control"
-                                                    id="mobile"
-                                                    aria-describedby="mobile"
-                                                    value={formData.mobile}
-                                                    onChange={handleChange}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-1">
-                                                  <label className="form-label">
-                                                    Resume
-                                                  </label>
-                                                  <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    name="file"
-                                                    onChange={(e: any) => {
-                                                      setFile(
-                                                        e.target.files[0]
-                                                      );
-                                                    }}
-                                                    required
-                                                  />
-                                                </div>
-                                                <div className="row justify-content-center">
-                                                  <button
-                                                    type="submit"
-                                                    className="btn btn-primary my-3 col-xl-6 col-lg-6 col-md-6 col-6"
-                                                  >
-                                                    Apply Now
-                                                  </button>
-                                                </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                  <div className="row justify-content-center">
+                                    <ul className="mt-3 col-8">
+                                      <li>{career.type}</li>
+                                      <li>{career.experience} experience</li>
+                                    </ul>
+                                    <a
+                                      href={`/career/${career.id}`}
+                                      className="btn col-2 mt-2"
+                                    >
+                                      Show More <FaArrowRight />
+                                    </a>
                                   </div>
                                 </div>
                               </div>

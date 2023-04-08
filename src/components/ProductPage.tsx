@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import "../styles/ProductPage.css";
-import { FaArrowDown, FaArrowRight } from "react-icons/fa";
+import { FaArrowDown, FaArrowRight, FaTrash } from "react-icons/fa";
 import bgImg from "../assets/Home/section3.png";
 import { Product, faq, image } from "../utils";
+import { Usercontext } from "../utils/Context";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -12,7 +13,24 @@ const ProductPage = () => {
   const [des, setDes] = useState<String[]>();
   const [faq, setFaq] = useState<faq[]>();
   const [imgs, setImages] = useState<image[]>();
+  const { auth } = useContext(Usercontext);
+  const handledelete = (id: any) => {
+    var axios = require("axios");
 
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/faq/${id}`,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     var axios = require("axios");
 
@@ -268,7 +286,19 @@ const ProductPage = () => {
                     key={faq.id}
                   >
                     <div className="card-body">
-                      <h4 className="card-title text-primary">{faq.question}</h4>
+                      <h4 className="card-title text-primary">
+                        {faq.question}
+                      </h4>
+                      <div className="row justify-content-center">
+                        {auth && auth.user?.role === "ADMIN" && (
+                          <button
+                            className="btn btn-danger col-4 m-2"
+                            onClick={() => handledelete(faq.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        )}
+                      </div>
                       <hr className="bdr-btm mx-auto" />
                       <p className="card-text">{faq.answer}</p>
                     </div>

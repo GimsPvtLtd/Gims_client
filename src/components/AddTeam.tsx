@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
+import { Usercontext } from "../utils/Context";
 
 const AddTeam = () => {
   const [name, setName] = useState("");
@@ -23,7 +24,8 @@ const AddTeam = () => {
   const [email, setEmail] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [number, setNumber] = useState("");
-
+  const [serialno,setSerial] = useState("");
+  const { auth } = useContext(Usercontext);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     var axios = require("axios");
@@ -51,7 +53,8 @@ const AddTeam = () => {
     data.append("email", email);
     data.append("linkedin", linkedin);
     data.append("number", number);
-    
+    data.append("serialno",serialno)
+
     console.log(image);
     var config = {
       method: "post",
@@ -59,6 +62,7 @@ const AddTeam = () => {
       data: data,
       headers: {
         "Content-Type": "multipart/form-data; ",
+        authorization: auth?.token,
       },
     };
 
@@ -375,6 +379,20 @@ const AddTeam = () => {
               value={number}
               onChange={(e) => {
                 setNumber(e.target.value);
+              }}
+            />
+          </div>
+          <div className="col-xl-6 col-lg-12 col-md-12 col-12">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Serial No
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="exampleInputPassword1"
+              value={serialno}
+              onChange={(e) => {
+                setSerial(e.target.value);
               }}
             />
           </div>

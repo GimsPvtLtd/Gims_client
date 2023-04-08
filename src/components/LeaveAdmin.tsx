@@ -1,15 +1,34 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import AddService from "./AddService";
 import { Leave, requirements } from "../utils";
 import Moment from "moment";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaTrash } from "react-icons/fa";
 import ApplyLeave from "./ApplyLeave";
+import { Usercontext } from "../utils/Context";
 var axios = require("axios");
 
 const LeaveAdmin = () => {
   const [data, setData] = useState<Leave[]>([]);
   const [datas, setDatas] = useState<Leave[]>([]);
+  const { auth } = useContext(Usercontext);
+  const handledelete = (id: any) => {
+    var axios = require("axios");
 
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/leave/${id}`,
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     var config = {
       method: "get",
@@ -193,6 +212,16 @@ const LeaveAdmin = () => {
                                   >
                                     {time.isapproved}
                                   </span>
+                                </td>
+                                <td>
+                                  {auth && auth.user?.role && (
+                                    <button
+                                      className="btn btn-danger mx-2"
+                                      onClick={() => handledelete(time.id)}
+                                    >
+                                      <FaTrash />
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                             );

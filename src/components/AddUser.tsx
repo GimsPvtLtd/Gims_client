@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import { ROLES, User, details } from "../utils";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaTrash } from "react-icons/fa";
+import { Usercontext } from "../utils/Context";
 
 const AddUser = () => {
   const [teammemberId, setTeammemberId] = useState("");
@@ -9,7 +10,24 @@ const AddUser = () => {
   const [password, setPassword] = useState("");
   const [data, setData] = useState<details[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const { auth } = useContext(Usercontext);
+  const handledelete = (id: any) => {
+    var axios = require("axios");
 
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/user/${id}`,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     var axios = require("axios");
 
@@ -56,6 +74,7 @@ const AddUser = () => {
       url: "http://localhost:8000/adduser",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        authorization : auth?.token
       },
       data: data,
     };
@@ -167,6 +186,16 @@ const AddUser = () => {
                 <td>{user.name}</td>
                 <td>{user.jobtitle}</td>
                 <td>{user.role}</td>
+                <td>
+                  {auth && auth.user?.role === "ADMIN" && (
+                    <button
+                      className="btn btn-danger mx-2"
+                      onClick={() => handledelete(user.userid)}
+                    >
+                      <FaTrash />
+                    </button>
+                  )}
+                </td>
                 <td>
                   <a
                     className="text-primary"

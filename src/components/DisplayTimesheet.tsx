@@ -1,23 +1,33 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import { Timesheet } from "../utils";
-
+import { PieChart } from "react-minimal-pie-chart";
+import { Usercontext } from "../utils/Context";
+import "../styles/Home.css"
+interface Activity{
+  title : string;
+  value : number;
+  color : string;
+}
 const DisplayTimesheet = () => {
   const { id } = useParams();
   const [data, setData] = useState<Timesheet[]>([]);
-
+  const [activity, setActivity] = useState<Activity[]>([]);
+  const { auth } = useContext(Usercontext);
   const search = window.location.search;
   const params = new URLSearchParams(search);
   const usr = params.get("usr");
+  const colors = ["gray", "silver", "maroon", "red", "purple", "fushsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal"]
   let hrs: number = 0;
   useEffect(() => {
     var axios = require("axios");
-
     var config = {
       method: "get",
       url: `http://localhost:8000/timesheet/${id}`,
-      headers: {},
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -27,7 +37,28 @@ const DisplayTimesheet = () => {
       .catch(function (error: any) {
         console.log(error);
       });
+      var config2 = {
+        method: "get",
+        url: `http://localhost:8000/timesheetactivity/${id}`,
+        headers: {
+          authorization: auth?.token,
+        },
+      };
+  
+      axios(config2)
+        .then(function (response: any) {
+          let activitydata : Activity[] = [];
+          response.data.map((data : any,ind : any) =>{
+            activitydata.push({title : data.activity,color : colors[ind],value :data.hours})
+          })
+          console.log(activitydata)
+          setActivity(activitydata);
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
   }, []);
+  console.log(activity)
   return (
     <Fragment>
       <NavBar />
@@ -39,6 +70,7 @@ const DisplayTimesheet = () => {
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">Activity</th>
                   <th scope="col">Start time</th>
                   <th scope="col">End time</th>
                   <th scope="col">No of Hours</th>
@@ -52,6 +84,7 @@ const DisplayTimesheet = () => {
                   return (
                     <tr key={time.id}>
                       <th scope="row">{ind + 1}</th>
+                      <th>{time.activity}</th>
                       <td>{time.starttime}</td>
                       <td>{time.endtime}</td>
                       <td>{time.noofhours}</td>
@@ -63,6 +96,7 @@ const DisplayTimesheet = () => {
                 <tr>
                   <th scope="row"></th>
                   <td></td>
+                  <td></td>
                   <td>Total No of Hours</td>
                   <td>
                     <b>{hrs}</b>
@@ -73,6 +107,17 @@ const DisplayTimesheet = () => {
           </table>
         </div>
       </section>
+      <div className="row justify-content-center">
+        <div className="col-xl-4 col-lg-12 col-md-12 col-12 my-2">
+          <PieChart
+            data={activity}
+            label={(dataEntry) =>
+              dataEntry.dataEntry.title + " : "  + dataEntry.dataEntry.value
+            }
+            totalValue={hrs}
+          />
+        </div>
+      </div>
     </Fragment>
   );
 };

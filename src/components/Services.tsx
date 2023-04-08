@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import NavBar from "./NavBar";
 import "../styles/Services.css";
 import dummy from "../assets/services/dummy.png";
 import Footer from "./Footer";
 import { Service } from "../utils";
+import { Usercontext } from "../utils/Context";
+import { FaTrash } from "react-icons/fa";
 interface FormData {
   name: string;
   designation: string;
@@ -17,6 +19,7 @@ interface FormData {
 }
 const Services = () => {
   const [data, setData] = useState<Service[]>([]);
+  const { auth } = useContext(Usercontext);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -88,7 +91,26 @@ const Services = () => {
         console.log(error);
       });
   }, []);
+  const handledelete = (id: any) => {
+    var axios = require("axios");
 
+    var config = {
+      method: "delete",
+      url: `http://localhost:8000/service/${id}`,
+      headers: {
+        authorization : auth?.token
+      },
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   const rnd = data.filter((ser) => {
     return ser.servicetype === "R&D";
   });
@@ -142,6 +164,16 @@ const Services = () => {
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>
+                          <div className="row justify-content-center">
+                            {auth && auth.user?.role === "ADMIN" && (
+                              <button
+                                className="btn btn-danger col-4 m-2"
+                                onClick={() => handledelete(ser.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -173,6 +205,16 @@ const Services = () => {
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>
+                          <div className="row justify-content-center">
+                            {auth && auth.user?.role === "ADMIN" && (
+                              <button
+                                className="btn btn-danger col-4 m-2"
+                                onClick={() => handledelete(ser.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -204,6 +246,16 @@ const Services = () => {
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>
+                          <div className="row justify-content-center">
+                            {auth && auth.user?.role === "ADMIN" && (
+                              <button
+                                className="btn btn-danger col-4 m-2"
+                                onClick={() => handledelete(ser.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>

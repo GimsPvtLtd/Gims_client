@@ -17,6 +17,7 @@ const ServicesAdmin = () => {
     axios(config)
       .then(function (response: any) {
         setData(response.data);
+        console.log(data)
       })
       .catch(function (error: any) {
         console.log(error);

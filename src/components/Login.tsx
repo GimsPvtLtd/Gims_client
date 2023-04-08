@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { Usercontext } from "../utils/Context";
+var bcrypt = require("bcryptjs");
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const cookies = new Cookies();
+  const { setRole } = useContext(Usercontext);
 
   const handlelogin = (event: any) => {
     event.preventDefault();
@@ -24,8 +29,18 @@ const Login = () => {
 
     axios(config)
       .then(function (response: any) {
-        alert(JSON.stringify(response.data));
-        navigate("/");
+        alert(JSON.stringify(response.data.message));
+        if(response.data.user)
+        {
+          cookies.set(
+            "auth",
+            { token: response.data.token, user: response.data.user },
+            { path: "/" }
+          );
+          navigate("/admin");
+        }
+        window.location.reload();
+        setRole({ token: response.data.token, user: response.data.user });
       })
       .catch(function (error: any) {
         alert(error);

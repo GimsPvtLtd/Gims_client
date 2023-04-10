@@ -3,7 +3,7 @@ import logo from "../assets/Home/logo.svg";
 import { FaUserAlt } from "react-icons/fa";
 import { Usercontext } from "../utils/Context";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { auth, setRole } = useContext(Usercontext);
@@ -56,93 +56,93 @@ const NavBar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light active"
                   aria-current="page"
-                  href="/"
+                  to="/"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               {auth && auth.user && (
                   <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link text-light active"
                     aria-current="page"
-                    href="/admin"
+                    to="/admin"
                   >
                     Admin Page
-                  </a>
+                  </Link>
                 </li>
                 )}
 
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/aboutus"
+                  to="/aboutus"
                 >
                   Our Approach
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/services"
+                  to="/services"
                 >
                   Services
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/products"
+                  to="/products"
                 >
                   Products
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/careers"
+                  to="/careers"
                 >
                   Careers
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/team"
+                  to="/team"
                 >
                   Our Team
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link text-light"
                   aria-current="page"
-                  href="/contactus"
+                  to="/contactus"
                 >
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 {!auth && !auth && (
-                  <a
+                  <Link
                     className="nav-link text-light"
                     aria-current="page"
-                    href="/login"
+                    to="/login"
                   >
                     Employee Login
-                  </a>
+                  </Link>
                 )}
               </li>
             </ul>

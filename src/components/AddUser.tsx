@@ -16,7 +16,7 @@ const AddUser = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/user/${id}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/user/${id}`,
     };
 
     axios(config)
@@ -33,7 +33,7 @@ const AddUser = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/teammembers",
+      url: process.env.REACT_APP_BACKEND_URL + "/teammembers",
       headers: {},
     };
 
@@ -47,7 +47,7 @@ const AddUser = () => {
 
     var config2 = {
       method: "get",
-      url: "http://localhost:8000/users",
+      url: process.env.REACT_APP_BACKEND_URL + "/users",
       headers: {},
     };
 
@@ -71,7 +71,7 @@ const AddUser = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/adduser",
+      url: process.env.REACT_APP_BACKEND_URL + "/adduser",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         authorization : auth?.token

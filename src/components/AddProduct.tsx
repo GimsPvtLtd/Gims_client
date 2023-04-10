@@ -10,7 +10,7 @@ const AddProduct = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: "http://localhost:8000/products",
+      url: process.env.REACT_APP_BACKEND_URL + "/products",
     };
 
     axios(config)
@@ -64,7 +64,7 @@ const AddProduct = () => {
 
     var config = {
       method: "post",
-      url: "http://localhost:8000/addproduct",
+      url: process.env.REACT_APP_BACKEND_URL + "/addproduct",
       data: data,
       headers: {
         authorization: auth?.token,
@@ -85,7 +85,7 @@ const AddProduct = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/product/${id}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/product/${id}`,
       headers: {
         authorization: auth?.token,
       },

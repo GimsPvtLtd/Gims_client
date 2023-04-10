@@ -25,7 +25,7 @@ const CareerPage = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/careers",
+      url: process.env.REACT_APP_BACKEND_URL + "/careers",
       headers: {},
     };
 
@@ -66,7 +66,7 @@ const CareerPage = () => {
 
     var config = {
       method: "post",
-      url: "http://localhost:8000/uploadresume",
+      url: process.env.REACT_APP_BACKEND_URL + "/uploadresume",
       data: data,
     };
 
@@ -85,7 +85,7 @@ const CareerPage = () => {
 
     var config = {
       method: "get",
-      url: `http://localhost:8000/career/${id}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/career/${id}`,
       headers: {},
     };
 

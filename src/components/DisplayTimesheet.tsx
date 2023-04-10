@@ -24,7 +24,7 @@ const DisplayTimesheet = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: `http://localhost:8000/timesheet/${id}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/timesheet/${id}`,
       headers: {
         authorization: auth?.token,
       },
@@ -39,7 +39,7 @@ const DisplayTimesheet = () => {
       });
       var config2 = {
         method: "get",
-        url: `http://localhost:8000/timesheetactivity/${id}`,
+        url: process.env.REACT_APP_BACKEND_URL +`/timesheetactivity/${id}`,
         headers: {
           authorization: auth?.token,
         },

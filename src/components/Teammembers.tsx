@@ -15,7 +15,7 @@ const Teammembers = ({ isAdmin }: Props) => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: "http://localhost:8000/teammembers",
+      url: process.env.REACT_APP_BACKEND_URL + "/teammembers",
       headers: {},
     };
 

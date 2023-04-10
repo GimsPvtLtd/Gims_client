@@ -44,7 +44,7 @@ const Imageupload = () => {
       });
       var config = {
         method: "post",
-        url: "http://localhost:8000/upload/faq",
+        url: process.env.REACT_APP_BACKEND_URL + "/upload/faq",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           authorization: auth?.token,
@@ -74,7 +74,7 @@ const Imageupload = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/upload/image",
+      url: process.env.REACT_APP_BACKEND_URL + "/upload/image",
       data: data,
       headers: {
         authorization: auth?.token,

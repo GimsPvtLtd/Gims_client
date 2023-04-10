@@ -62,7 +62,7 @@ const Services = () => {
 
     var config = {
       method: "post",
-      url: "http://localhost:8000/addrequirement",
+      url: process.env.REACT_APP_BACKEND_URL + "/addrequirement",
       data: data,
     };
 
@@ -80,7 +80,7 @@ const Services = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: "http://localhost:8000/services",
+      url: process.env.REACT_APP_BACKEND_URL + "/services",
     };
 
     axios(config)

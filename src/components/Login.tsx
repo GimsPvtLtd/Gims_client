@@ -22,7 +22,7 @@ const Login = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/login",
+      url: process.env.REACT_APP_BACKEND_URL + "/login",
       credentials: "include",
       data: data,
     };

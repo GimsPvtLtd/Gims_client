@@ -30,7 +30,7 @@ const Team = () => {
   // const [data, setData] = React.useState([]);
   // var config = {
   //   method: "get",
-  //   url: "http://localhost:8000/teammembers",
+  //   url: process.env.REACT_APP_BACKEND_URL + "/teammembers",
   //   headers: {},
   // };
 

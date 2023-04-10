@@ -25,7 +25,7 @@ const AddService = () => {
 
     var config = {
       method: "post",
-      url: "http://localhost:8000/addservice",
+      url: process.env.REACT_APP_BACKEND_URL + "/addservice",
       data: data,
       headers:{
       authorization: auth?.token,

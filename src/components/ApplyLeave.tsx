@@ -20,7 +20,7 @@ const ApplyLeave = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/applyleave",
+      url: process.env.REACT_APP_BACKEND_URL + "/applyleave",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

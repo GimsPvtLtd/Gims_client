@@ -33,7 +33,7 @@ const AddCareer = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/careers",
+      url: process.env.REACT_APP_BACKEND_URL + "/careers",
       headers: {},
     };
 
@@ -55,7 +55,7 @@ const AddCareer = () => {
     });
     var config = {
       method: "put",
-      url: "http://localhost:8000/career",
+      url: process.env.REACT_APP_BACKEND_URL + "/career",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         authorization: auth?.token,
@@ -114,7 +114,7 @@ const AddCareer = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/addcareer",
+      url: process.env.REACT_APP_BACKEND_URL + "/addcareer",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         authorization: auth?.token,

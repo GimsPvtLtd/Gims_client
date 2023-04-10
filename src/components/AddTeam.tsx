@@ -58,7 +58,7 @@ const AddTeam = () => {
     console.log(image);
     var config = {
       method: "post",
-      url: "http://localhost:8000/addmember",
+      url: process.env.REACT_APP_BACKEND_URL + "/addmember",
       data: data,
       headers: {
         "Content-Type": "multipart/form-data; ",

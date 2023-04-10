@@ -32,7 +32,7 @@ const LeaveAdmin = () => {
   useEffect(() => {
     var config = {
       method: "get",
-      url: "http://localhost:8000/leave/GIMS001",
+      url: process.env.REACT_APP_BACKEND_URL + "/leave/GIMS001",
     };
 
     axios(config)
@@ -44,7 +44,7 @@ const LeaveAdmin = () => {
       });
     var config2 = {
       method: "get",
-      url: "http://localhost:8000/leaves",
+      url: process.env.REACT_APP_BACKEND_URL + "/leaves",
     };
 
     axios(config2)
@@ -65,7 +65,7 @@ const LeaveAdmin = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/approveleave",
+      url: process.env.REACT_APP_BACKEND_URL + "/approveleave",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

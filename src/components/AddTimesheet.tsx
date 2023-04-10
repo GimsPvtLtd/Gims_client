@@ -18,7 +18,7 @@ const AddTimesheet = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/timesheet/${id}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/timesheet/${id}`,
       headers: {
         authorization: auth?.token,
       },
@@ -38,7 +38,7 @@ const AddTimesheet = () => {
 
     var config = {
       method: "get",
-      url: `http://localhost:8000/timesheet/${auth?.user?.userid}`,
+      url: process.env.REACT_APP_BACKEND_URL + `/timesheet/${auth?.user?.userid}`,
       headers: {
         authorization: auth?.token,
       },
@@ -66,7 +66,7 @@ const AddTimesheet = () => {
     });
     var config = {
       method: "post",
-      url: "http://localhost:8000/uploadtimesheet",
+      url: process.env.REACT_APP_BACKEND_URL + "/uploadtimesheet",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         authorization: auth?.token,

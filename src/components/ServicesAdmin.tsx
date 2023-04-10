@@ -11,7 +11,7 @@ const ServicesAdmin = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/requirements",
+      url: process.env.REACT_APP_BACKEND_URL + "/requirements",
     };
 
     axios(config)

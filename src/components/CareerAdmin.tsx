@@ -12,7 +12,7 @@ const CareerAdmin = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/applications",
+      url: process.env.REACT_APP_BACKEND_URL + "/applications",
     };
 
     axios(config)
@@ -108,7 +108,7 @@ const CareerAdmin = () => {
                           <td>{application.mobile}</td>
                           <td>{application.careertitle}</td>
                           <td>{application.careerdomain}</td>
-                          <td><a href={`http://localhost:8000/applications/${application.resumelocation}`}>Click Here</a></td>
+                          <td><a href={process.env.REACT_APP_BACKEND_URL + `/applications/${application.resumelocation}`}>Click Here</a></td>
                         </tr>
                       ))}
                     </tbody>

@@ -19,7 +19,7 @@ const Careers = () => {
 
     var config = {
       method: "get",
-      url: "http://localhost:8000/careers",
+      url: process.env.REACT_APP_BACKEND_URL + "/careers",
       headers: {},
     };
 

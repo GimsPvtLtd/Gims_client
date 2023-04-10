@@ -16,7 +16,7 @@ const Products = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: "http://localhost:8000/products",
+      url: process.env.REACT_APP_BACKEND_URL + "/products",
     };
 
     axios(config)

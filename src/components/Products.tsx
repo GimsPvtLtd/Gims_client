@@ -187,7 +187,7 @@ const Products = () => {
                         })
                         .map((product: Product) => {
                           return (
-                            <div className="card mt-5">
+                            <div className="card mt-5" key={product.id}>
                               <img
                                 className="card-img-top"
                                 src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
@@ -229,7 +229,7 @@ const Products = () => {
                         })
                         .map((product: Product) => {
                           return (
-                            <div className="card mt-5">
+                            <div className="card mt-5" key={product.id}>
                               <img
                                 className="card-img-top"
                                 src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}

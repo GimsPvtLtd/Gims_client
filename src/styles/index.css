@@ -3,7 +3,8 @@
   padding: 0px;
   border: none;
   outline: none;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
+  overflow: visible !important;
 }
 
 :root {
@@ -345,9 +346,9 @@ textarea:focus {
 /**/
 
 /*Side menu styles*/
-body.show-sidebar {
+/* body.show-sidebar {
   overflow: hidden;
-}
+} */
 aside,
 main {
   height: 100vh;
@@ -422,7 +423,6 @@ aside .toggle {
 aside .side-inner {
   padding: 20px 0;
   height: 100vh;
-  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 aside .side-inner .share {

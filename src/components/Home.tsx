@@ -16,30 +16,35 @@ const Home = () => {
       <NavBar />
       <section className="banner-sec">
         <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12 text-light">
+          <div className="row align-items-center ">
+            <div className=" col-xl-6 col-lg-12 col-md-12 col-12 text-light">
               <h1 className="txt-1">
-                Product Design, Manufacturing, R&D <br />
-                and Automation
+                Guhan Industrial and <br />
+                Manufacturing Solutions
               </h1>
               <h3 className="txt-3 py-3">
-                We are a Product Engineering and Licensing company, engineered
-                by the laws of Physics.
+                We are a Product Engineering and Licensing company.
+                <br />
+              </h3>
+              <h3 className="align-items-center">
+                <i className="fw-bold">
+                  <blockquote>Engineered by the laws of Physics. </blockquote>
+                </i>
               </h3>
               <div className="banner-links py-3">
                 <a href="/products">
-                <button type="button" className="btn btn-primary">
-                  Explore Products <FaArrowRight />
-                </button>
+                  <button type="button" className="btn btn-primary">
+                    Explore Products <FaArrowRight />
+                  </button>
                 </a>
-               <a href="/aboutus">
-               <button
-                  type="button"
-                  className="btn btn-outline-primary text-light"
-                >
-                  About Us <FaArrowRight />
-                </button>
-               </a>
+                <a href="/aboutus">
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary text-light"
+                  >
+                    About Us <FaArrowRight />
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -192,9 +197,9 @@ const Home = () => {
 
               <div className="banner-links py-3">
                 <a href="/products">
-                <button type="button" className="btn btn-primary">
-                  Explore All Products <FaArrowRight className="ms-2" />
-                </button>
+                  <button type="button" className="btn btn-primary">
+                    Explore All Products <FaArrowRight className="ms-2" />
+                  </button>
                 </a>
               </div>
             </div>

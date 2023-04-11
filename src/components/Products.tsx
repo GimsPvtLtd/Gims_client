@@ -160,7 +160,7 @@ const Products = () => {
                             <div className="card mt-5" key={product.id}>
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -190,7 +190,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -232,7 +232,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -262,7 +262,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -303,7 +303,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -333,7 +333,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -374,7 +374,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
@@ -404,7 +404,7 @@ const Products = () => {
                             <div className="card mt-5">
                               <img
                                 className="card-img-top"
-                                src={`http://localhost:8000/products/${product.image}`}
+                                src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
                               />
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>

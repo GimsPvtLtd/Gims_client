@@ -25,7 +25,7 @@ export interface details {
 }
 
 export interface Product {
-  id?: number;
+  id?: string;
   name?: string;
   type?: string;
   image?: string;
@@ -38,6 +38,9 @@ export interface Product {
   load?: any;
   construction?: any;
   technicalspecs?: any;
+  presentInHomePage?: boolean;
+  serialno?: any;
+  youtubeId?: any;
 }
 
 export interface faq {

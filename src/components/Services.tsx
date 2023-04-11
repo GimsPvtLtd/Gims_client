@@ -96,7 +96,7 @@ const Services = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/service/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/service/${id}`,
       headers: {
         authorization : auth?.token
       },
@@ -160,7 +160,7 @@ const Services = () => {
                       >
                         <img
                           className="card-img-top"
-                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                          src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>
@@ -201,7 +201,7 @@ const Services = () => {
                       >
                         <img
                           className="card-img-top"
-                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                          src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>
@@ -242,7 +242,7 @@ const Services = () => {
                       >
                         <img
                           className="card-img-top"
-                          src={`http://localhost:8000/services/${ser.imglocation}`}
+                          src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
                         <div className="card-body">
                           <p className="txt-3-dp text-center">{ser.name}</p>

@@ -19,7 +19,7 @@ const ProductPage = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/faq/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/faq/${id}`,
     };
 
     axios(config)
@@ -36,7 +36,7 @@ const ProductPage = () => {
 
     var config = {
       method: "get",
-      url: `http://localhost:8000/product/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/product/${id}`,
       headers: {},
     };
 
@@ -51,7 +51,7 @@ const ProductPage = () => {
 
     var config2 = {
       method: "get",
-      url: `http://localhost:8000/faq/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/faq/${id}`,
       headers: {},
     };
 
@@ -65,7 +65,7 @@ const ProductPage = () => {
 
     var config3 = {
       method: "get",
-      url: `http://localhost:8000/image/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/image/${id}`,
       headers: {},
     };
 
@@ -99,7 +99,7 @@ const ProductPage = () => {
               </h1>
               <div className="banner-links pt-5">
                 <a
-                  href={`http://localhost:8000/products/${data?.brochure}`}
+                  href={`${process.env.REACT_APP_BACKEND_URL}/products/${data?.brochure}`}
                   target={"_blank"}
                   className="btn-style btn-1"
                 >
@@ -132,14 +132,16 @@ const ProductPage = () => {
               </a>
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 mt-md-0 mt-5">
-              <iframe
-                width="100%"
-                height="350"
-                src={`https://www.youtube.com/embed/FXk76rWYdEs`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Embedded youtube"
-              />
+              {data?.youtubeId && (
+                <iframe
+                  width="100%"
+                  height="350"
+                  src={`https://www.youtube.com/embed/${data.youtubeId}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Embedded youtube"
+                />
+              )}
               <br />
               <br />
               {imgs && imgs.length > 0 && (
@@ -147,7 +149,7 @@ const ProductPage = () => {
                   className="card-img-top"
                   src={
                     imgs && imgs?.length > 0
-                      ? `http://localhost:8000/products/${imgs[0].location}`
+                      ? `${process.env.REACT_APP_BACKEND_URL}/products/${imgs[0].location}`
                       : "...."
                   }
                 />
@@ -204,7 +206,7 @@ const ProductPage = () => {
                           }
                         >
                           <img
-                            src={`http://localhost:8000/products/${img.location}`}
+                            src={`${process.env.REACT_APP_BACKEND_URL}/products/${img.location}`}
                             className="mx-auto d-block w-100"
                             alt="..."
                           />

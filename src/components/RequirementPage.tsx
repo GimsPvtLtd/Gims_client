@@ -14,7 +14,7 @@ const RequirementPage = () => {
 
     var config = {
       method: "get",
-      url: `http://localhost:8000/requirement/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/requirement/${id}`,
       headers: {},
     };
 
@@ -56,7 +56,7 @@ const RequirementPage = () => {
                 <th scope="row">Relevent Files: </th>
                 <td>
                   <a
-                    href={`http://localhost:8000/requirements/${data?.filelocation}`}
+                    href={`${process.env.REACT_APP_BACKEND_URL}/requirements/${data?.filelocation}`}
                     target="_blank"
                   >
                     CLick Here

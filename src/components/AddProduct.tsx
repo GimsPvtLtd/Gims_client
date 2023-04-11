@@ -30,6 +30,9 @@ const AddProduct = () => {
   const [file, setFile] = useState("");
   const [spec, setSpec] = useState([{ key: "", value: "" }]);
   const { auth } = useContext(Usercontext);
+  const [serialno, setSerialno] = useState(0);
+  const [present, setPresent] = useState<any>(false);
+  const [youtubeID, setYoutubeID] = useState("");
   const handleSpecInput = ({
     ind,
     event,
@@ -61,6 +64,9 @@ const AddProduct = () => {
     data.append("technicalspecs", techspec);
     data.append("uploadedproduct", image);
     data.append("uploadedproduct", file);
+    data.append("presentInHomePage", present);
+    data.append("serialno", serialno);
+    data.append("youtubeId",youtubeID);
 
     var config = {
       method: "post",
@@ -230,8 +236,8 @@ const AddProduct = () => {
               );
             })}
           </div>
-          <div className="row justify-content-center">
-            <div className="col-xl-6 col-lg-12 col-md-12 col-12">
+          <div className="row justify-content-center align-content-center">
+            <div className="col-xl-4 col-lg-12 col-md-12 col-12">
               <label htmlFor="techspec" className="form-label">
                 Technical Specification
               </label>
@@ -244,6 +250,49 @@ const AddProduct = () => {
                   setTechspec(e.target.value);
                 }}
               />
+            </div>
+            <div className="col-xl-4 col-lg-12 col-md-12 col-12">
+              <label htmlFor="serialno" className="form-label">
+                Serial No
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="serialno"
+                value={serialno}
+                onChange={(e) => {
+                  setSerialno(parseInt(e.target.value));
+                }}
+              />
+            </div>
+            <div className="col-xl-4 col-lg-12 col-md-12 col-12">
+              <label htmlFor="serialno" className="form-label">
+                Youtube Id
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="youtubeID"
+                value={youtubeID}
+                onChange={(e) => {
+                  setYoutubeID(e.target.value);
+                }}
+              />
+            </div>
+            <div className="col-xl-4 col-lg-12 col-md-12 col-12">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  defaultValue=""
+                  id="flexCheckDefault"
+                  value={present}
+                  onChange={(e) => setPresent(e.target.value)}
+                />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  Display In Homepage
+                </label>
+              </div>
             </div>
           </div>
           <div className="row justify-content-center">

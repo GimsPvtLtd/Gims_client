@@ -16,7 +16,7 @@ const LeaveAdmin = () => {
 
     var config = {
       method: "delete",
-      url: `http://localhost:8000/leave/${id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/leave/${id}`,
       headers: {},
     };
 

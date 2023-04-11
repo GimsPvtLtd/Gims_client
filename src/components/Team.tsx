@@ -67,7 +67,7 @@ const Team = () => {
                   <div className="card">
                     <img
                       className="card-img-top"
-                      src={`http://localhost:8000/images/${detail.image}`}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/images/${detail.image}`}
                     />
                     <div className="card-body text-center">
                       <p className="txt-3-semi">
@@ -110,7 +110,7 @@ const Team = () => {
                         style={{
                           backgroundImage:
                             "url(" +
-                            `http://localhost:8000/images/${detail.heroimg}` +
+                            `${process.env.REACT_APP_BACKEND_URL}/images/${detail.heroimg}` +
                             ")",
                           // backgroundSize: "cover",
                           // backgroundRepeat: "no-repeat",

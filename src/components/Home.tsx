@@ -18,7 +18,7 @@ const Home = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/products",
+      url: process.env.REACT_APP_BACKEND_URL + "/product",
     };
 
     axios(config)
@@ -146,7 +146,7 @@ const Home = () => {
                 .map((product) => {
                   return (
                     <div className="card mt-5">
-                      <img className="card-img-top" src={ozcare} />
+                      <img className="card-img-top" src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`} />
                       <div className="card-body">
                         <p className="txt-3-bold">{product.name}</p>
                         <p className="body-bold py-2">
@@ -156,7 +156,7 @@ const Home = () => {
                         </p>
                         <div className="banner-links">
                           <a
-                            href="http://gimsindustry.com/products.html"
+                            href="http://gimsindia.in/products"
                             className="btn-style-2"
                           >
                             Learn More{" "}
@@ -169,45 +169,34 @@ const Home = () => {
                 })}
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 negative-card">
-              <div className="card mt-5">
-                <img className="card-img-top" src={desktop} />
-                <div className="card-body">
-                  <p className="txt-3-bold">Desktop 3D printing system</p>
-                  <p className="body-bold py-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse lacus ipsum, tincidunt eget varius nec,
-                    tincidunt ac ipsum. Nam sollicitudin gravida bibendum.
-                  </p>
-                  <div className="banner-links">
-                    <a
-                      href="http://gimsindustry.com/products.html"
-                      className="btn-style-2"
-                    >
-                      Learn More <FaArrowRight className="text-primary mx-2" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="card mt-5">
-                <img className="card-img-top" src={apple} />
-                <div className="card-body">
-                  <p className="txt-3-bold">Next Breakout Technology</p>
-                  <p className="body-bold py-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse lacus ipsum, tincidunt eget varius nec,
-                    tincidunt ac ipsum. Nam sollicitudin gravida bibendum.
-                  </p>
-                  <div className="banner-links">
-                    <a
-                      href="http://gimsindustry.com/products.html"
-                      className="btn-style-2"
-                    >
-                      Learn More <FaArrowRight className="text-primary mx-2" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
+            {data
+                .filter((_, ind) => {
+                  return ind % 2 != 0;
+                })
+                .map((product) => {
+                  return (
+                    <div className="card mt-5">
+                      <img className="card-img-top" src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`} />
+                      <div className="card-body">
+                        <p className="txt-3-bold">{product.name}</p>
+                        <p className="body-bold py-2">
+                          {
+                            product.description.split("###")[0]
+                          }
+                        </p>
+                        <div className="banner-links">
+                          <a
+                            href="http://gimsindia.in/products"
+                            className="btn-style-2"
+                          >
+                            Learn More{" "}
+                            <FaArrowRight className="text-primary mx-2" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               <div className="banner-links py-3">
                 <a href="/products">
                   <button type="button" className="btn btn-primary">

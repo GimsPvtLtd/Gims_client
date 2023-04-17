@@ -10,7 +10,7 @@ const AddProduct = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/products",
+      url: process.env.REACT_APP_BACKEND_URL + "/product",
     };
 
     axios(config)

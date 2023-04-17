@@ -15,7 +15,7 @@ const CareerAdmin = () => {
 
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/applications",
+      url: process.env.REACT_APP_BACKEND_URL + "/application",
       headers: {
         authorization: auth?.token,
       },

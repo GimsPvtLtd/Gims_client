@@ -14,7 +14,7 @@ const ServicesAdmin = () => {
 
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/requirements",
+      url: process.env.REACT_APP_BACKEND_URL + "/requirement",
       headers : {
         authorization: auth?.token,
       }

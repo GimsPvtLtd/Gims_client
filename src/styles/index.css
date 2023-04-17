@@ -7,6 +7,21 @@
   overflow: visible !important;
 }
 
+html {
+  overflow-x: hidden !important;
+}
+body {
+  font-size: 16px;
+  color: var(--font2);
+  line-height: 24px;
+  font-weight: 400;
+  padding-right: 0 px !important;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Rajdhani", sans-serif;
+}
+
+
 :root {
   --primary: #0044ff;
   --secondary: #e8e8e8;
@@ -73,15 +88,6 @@
   font-display: swap;
 }
 
-body {
-  font-size: 16px;
-  color: var(--font2);
-  line-height: 24px;
-  font-weight: 400;
-  background: #fff;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Rajdhani", sans-serif;
-}
 
 a,
 .services-and-support:hover .card,

@@ -20,6 +20,9 @@ const ProductPage = () => {
     var config = {
       method: "delete",
       url: `${process.env.REACT_APP_BACKEND_URL}/faq/${id}`,
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -127,9 +130,11 @@ const ProductPage = () => {
                     </Fragment>
                   );
                 })}
-              <a href="#Gallery" className="btn-style btn-1-1">
-                View Gallery
-              </a>
+              {imgs && imgs?.length > 1 && (
+                <a href="#Gallery" className="btn-style btn-1-1">
+                  View Gallery
+                </a>
+              )}
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 mt-md-0 mt-5">
               {data?.youtubeId && (

@@ -6,6 +6,8 @@ import Footer from "./Footer";
 import { Service } from "../utils";
 import { Usercontext } from "../utils/Context";
 import { FaTrash } from "react-icons/fa";
+import SubmitRequirement from "./SubmitRequirement";
+import { useNavigate } from "react-router-dom";
 interface FormData {
   name: string;
   designation: string;
@@ -80,7 +82,8 @@ const Services = () => {
     var axios = require("axios");
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/services",
+      url: process.env.REACT_APP_BACKEND_URL + "/service",
+      headers : {},
     };
 
     axios(config)
@@ -111,15 +114,16 @@ const Services = () => {
         console.log(error);
       });
   };
-  const rnd = data.filter((ser) => {
+  const rnd = data && data.filter((ser) => {
     return ser.servicetype === "R&D";
   });
-  const ma = data.filter((ser) => {
+  const ma = data && data.filter((ser) => {
     return ser.servicetype === "Manufacturing and automation";
   });
-  const design = data.filter((ser) => {
+  const design =data && data.filter((ser) => {
     return ser.servicetype === "Design";
   });
+  const navigate = useNavigate();
   return (
     <Fragment>
       <NavBar />
@@ -266,10 +270,9 @@ const Services = () => {
           </div>
         </div>
       </section>
-      <div className="modal" id="myModal">
+      {/* <div className="modal" id="myModal">
         <div className="modal-dialog">
           <div className="modal-content">
-            {/* <!-- Modal Header --> */}
             <div className="modal-header">
               <h4 className="modal-title txt-3-dp">
                 Personalised Hot wire cutter
@@ -279,7 +282,6 @@ const Services = () => {
               </button>
             </div>
 
-            {/* <!-- Modal body --> */}
             <div className="modal-body">
               <img
                 className="card-img-top"
@@ -295,7 +297,7 @@ const Services = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <!-- Indusrty sec Ends --> */}
 
@@ -313,8 +315,7 @@ const Services = () => {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    onClick={()=> navigate("/submitrequirement")}
                   >
                     Submit requirements
                   </button>
@@ -325,7 +326,7 @@ const Services = () => {
         </div>
       </section>
       <div>
-        <div
+        {/* <div
           className="modal fade"
           id="exampleModal"
           tabIndex={-1}
@@ -476,7 +477,7 @@ const Services = () => {
               </form>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Footer />

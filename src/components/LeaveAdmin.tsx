@@ -17,7 +17,9 @@ const LeaveAdmin = () => {
     var config = {
       method: "delete",
       url: `${process.env.REACT_APP_BACKEND_URL}/leave/${id}`,
-      headers: {},
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -32,7 +34,10 @@ const LeaveAdmin = () => {
   useEffect(() => {
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + "/leave/GIMS001",
+      url: process.env.REACT_APP_BACKEND_URL + `/leave/${auth?.user?.userid}`,
+      headers :{
+        authorization: auth?.token,
+      }
     };
 
     axios(config)
@@ -45,6 +50,9 @@ const LeaveAdmin = () => {
     var config2 = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + "/leaves",
+      headers:{
+        authorization: auth?.token,
+      }
     };
 
     axios(config2)
@@ -68,6 +76,7 @@ const LeaveAdmin = () => {
       url: process.env.REACT_APP_BACKEND_URL + "/approveleave",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        authorization: auth?.token,
       },
       data: data,
     };

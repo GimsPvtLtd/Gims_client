@@ -209,7 +209,6 @@ const Products = () => {
                     </div>
                   </div>
                   </div>
-                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -280,7 +279,6 @@ const Products = () => {
                         })}
                     </div>
                   </div>
-                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -351,7 +349,6 @@ const Products = () => {
                         })}
                     </div>
                   </div>
-                  <Footer />
                 </div>
                 <div
                   className="container tab-pane fade"
@@ -422,12 +419,12 @@ const Products = () => {
                         })}
                     </div>
                   </div>
-                  <Footer />
                 </div>
             </div>
           </div>
         </div>
       </section>
+      <Footer />
     </Fragment>
   );
 };

@@ -31,12 +31,6 @@ export interface Product {
   image?: string;
   brochure?: string;
   description: any;
-  design?: any;
-  motor?: any;
-  waterspeeds?: any;
-  dimensions?: any;
-  load?: any;
-  construction?: any;
   technicalspecs?: any;
   presentInHomePage?: boolean;
   serialno?: any;

@@ -10,7 +10,30 @@ import ozcare from "../assets/Home/oz-care.png";
 import desktop from "../assets/Home/desktop-3d.png";
 import apple from "../assets/Home/apple.jpg";
 import Footer from "./Footer";
+import { Product } from "../utils";
 const Home = () => {
+  const [data, setData] = React.useState<Product[]>([]);
+
+  React.useEffect(() => {
+    var axios = require("axios");
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_BACKEND_URL + "/products",
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        let fltrdata = response.data.filter((product: Product) => {
+          return product.presentInHomePage;
+        });
+
+        setData(fltrdata);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Fragment>
       <NavBar />
@@ -116,44 +139,34 @@ const Home = () => {
                 Manufacturing solutions
               </h2>
               <hr className="bdr-btm" />
-              <div className="card mt-5">
-                <img className="card-img-top" src={ozcare} />
-                <div className="card-body">
-                  <p className="txt-3-bold">Desktop Waterjet System</p>
-                  <p className="body-bold py-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse lacus ipsum, tincidunt eget varius nec,
-                    tincidunt ac ipsum. Nam sollicitudin gravida bibendum.
-                  </p>
-                  <div className="banner-links">
-                    <a
-                      href="http://gimsindustry.com/products.html"
-                      className="btn-style-2"
-                    >
-                      Learn More <FaArrowRight className="text-primary mx-2" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="card mt-5">
-                <img className="card-img-top" src={ozcare} />
-                <div className="card-body">
-                  <p className="txt-3-bold">OZ Care</p>
-                  <p className="body-bold py-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse lacus ipsum, tincidunt eget varius nec,
-                    tincidunt ac ipsum. Nam sollicitudin gravida bibendum.
-                  </p>
-                  <div className="banner-links">
-                    <a
-                      href="http://gimsindustry.com/products.html"
-                      className="btn-style-2"
-                    >
-                      Learn More <FaArrowRight className="text-primary mx-2" />
-                    </a>
-                  </div>
-                </div>
-              </div>
+              {data
+                .filter((_, ind) => {
+                  return ind % 2 === 0;
+                })
+                .map((product) => {
+                  return (
+                    <div className="card mt-5">
+                      <img className="card-img-top" src={ozcare} />
+                      <div className="card-body">
+                        <p className="txt-3-bold">{product.name}</p>
+                        <p className="body-bold py-2">
+                          {
+                            product.description.split("###")[0]
+                          }
+                        </p>
+                        <div className="banner-links">
+                          <a
+                            href="http://gimsindustry.com/products.html"
+                            className="btn-style-2"
+                          >
+                            Learn More{" "}
+                            <FaArrowRight className="text-primary mx-2" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 negative-card">
               <div className="card mt-5">

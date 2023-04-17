@@ -16,6 +16,7 @@ import DisplayTimesheet from "./components/DisplayTimesheet";
 import { Usercontext } from "./utils/Context";
 import Cookies from "universal-cookie";
 import CareerPage from "./components/CareerPage";
+import SubmitRequirement from "./components/SubmitRequirement";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
   {
     path: "/career/:id",
     element: <CareerPage />,
+  },
+  {
+    path: "/submitrequirement",
+    element: <SubmitRequirement />,
   },
 ]);
 const routerAdmin = createBrowserRouter([
@@ -119,6 +124,10 @@ const routerAdmin = createBrowserRouter([
   {
     path: "/timesheet/:id",
     element: <DisplayTimesheet />,
+  },
+  {
+    path: "/submitrequirement",
+    element: <SubmitRequirement />,
   },
 ]);
 

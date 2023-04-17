@@ -1,18 +1,24 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import AddService from "./AddService";
 import { applications, requirements } from "../utils";
 import Moment from "moment";
 import { FaArrowRight } from "react-icons/fa";
 import AddCareer from "./AddCareer";
+import { Usercontext } from "../utils/Context";
 
 const CareerAdmin = () => {
   const [data, setData] = useState<applications[]>();
+  const { auth } = useContext(Usercontext);
+
   useEffect(() => {
     var axios = require("axios");
 
     var config = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + "/applications",
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -108,7 +114,16 @@ const CareerAdmin = () => {
                           <td>{application.mobile}</td>
                           <td>{application.careertitle}</td>
                           <td>{application.careerdomain}</td>
-                          <td><a href={process.env.REACT_APP_BACKEND_URL + `/applications/${application.resumelocation}`}>Click Here</a></td>
+                          <td>
+                            <a
+                              href={
+                                process.env.REACT_APP_BACKEND_URL +
+                                `/applications/${application.resumelocation}`
+                              }
+                            >
+                              Click Here
+                            </a>
+                          </td>
                         </tr>
                       ))}
                     </tbody>

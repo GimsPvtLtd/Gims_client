@@ -1,23 +1,28 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import AddService from "./AddService";
 import { requirements } from "../utils";
 import Moment from "moment";
 import { FaArrowRight } from "react-icons/fa";
+import { Usercontext } from "../utils/Context";
 
 const ServicesAdmin = () => {
   const [data, setData] = useState<requirements[]>();
+  const { auth } = useContext(Usercontext);
+
   useEffect(() => {
     var axios = require("axios");
 
     var config = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + "/requirements",
+      headers : {
+        authorization: auth?.token,
+      }
     };
 
     axios(config)
       .then(function (response: any) {
         setData(response.data);
-        console.log(data)
       })
       .catch(function (error: any) {
         console.log(error);

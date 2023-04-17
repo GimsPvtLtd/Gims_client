@@ -1,13 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import "../styles/RequirementPage.css";
 import { requirements } from "../utils";
 import Moment from "moment";
+import { Usercontext } from "../utils/Context";
 
 const RequirementPage = () => {
   const { id } = useParams();
   const [data, setData] = useState<requirements>();
+  const { auth } = useContext(Usercontext);
 
   useEffect(() => {
     var axios = require("axios");
@@ -15,7 +17,9 @@ const RequirementPage = () => {
     var config = {
       method: "get",
       url: `${process.env.REACT_APP_BACKEND_URL}/requirement/${id}`,
-      headers: {},
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)

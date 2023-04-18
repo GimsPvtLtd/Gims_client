@@ -1,8 +1,15 @@
 import React, { Fragment, useContext } from "react";
 import "../styles/Team.css";
-import { FaEnvelope, FaLinkedin, FaTrash, FaWhatsapp } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLinkedin,
+  FaTrash,
+  FaUserEdit,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { details } from "../utils";
 import { Usercontext } from "../utils/Context";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   isAdmin?: boolean;
@@ -11,6 +18,7 @@ interface Props {
 const Teammembers = ({ isAdmin }: Props) => {
   const [data, setData] = React.useState([]);
   const { auth } = useContext(Usercontext);
+  const navigate = useNavigate();
   React.useEffect(() => {
     var axios = require("axios");
     var config = {
@@ -98,9 +106,15 @@ const Teammembers = ({ isAdmin }: Props) => {
                         </div>
                       </nav>
                       {isAdmin && (
-                        <div className="row m-1">
+                        <div className="row p-2 justify-content-center">
                           <button
-                            className="btn btn-danger"
+                            className="btn btn-success col-5 m-1"
+                            onClick={() => navigate(`/editteam/${detail.id}`)}
+                          >
+                            <FaUserEdit />
+                          </button>
+                          <button
+                            className="btn btn-danger col-5 m-1"
                             onClick={() => deletemember(detail.id)}
                           >
                             <FaTrash />
@@ -116,7 +130,7 @@ const Teammembers = ({ isAdmin }: Props) => {
                             "url(" +
                             `${process.env.REACT_APP_BACKEND_URL}/images/${detail.heroimg}` +
                             ")",
-                            height : "423px"
+                          height: "423px",
                           // backgroundSize: "cover",
                           // backgroundRepeat: "no-repeat",
                         }}

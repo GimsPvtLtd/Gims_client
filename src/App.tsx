@@ -17,6 +17,7 @@ import { Usercontext } from "./utils/Context";
 import Cookies from "universal-cookie";
 import CareerPage from "./components/CareerPage";
 import SubmitRequirement from "./components/SubmitRequirement";
+import EditTeam from "./components/EditTeam";
 
 const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ const routerAdmin = createBrowserRouter([
   {
     path: "/submitrequirement",
     element: <SubmitRequirement />,
+  },
+  {
+    path: "/editteam/:id",
+    element: <EditTeam />,
   },
 ]);
 

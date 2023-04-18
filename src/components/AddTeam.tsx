@@ -24,7 +24,7 @@ const AddTeam = () => {
   const [email, setEmail] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [number, setNumber] = useState("");
-  const [serialno,setSerial] = useState("");
+  const [serialno,setSerial] = useState(0);
   const { auth } = useContext(Usercontext);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -392,7 +392,7 @@ const AddTeam = () => {
               id="exampleInputPassword1"
               value={serialno}
               onChange={(e) => {
-                setSerial(e.target.value);
+                setSerial(parseInt(e.target.value));
               }}
             />
           </div>

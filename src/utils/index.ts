@@ -22,6 +22,7 @@ export interface details {
   email?: string;
   linkedin?: string;
   number?: string;
+  serialno ?: number
 }
 
 export interface Product {

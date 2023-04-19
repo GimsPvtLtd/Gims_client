@@ -62,7 +62,7 @@ const Teammembers = ({ isAdmin }: Props) => {
         <div className="container">
           <div className="row">
             {data?.map((detail: details) => (
-              <Fragment>
+              detail && <Fragment>
                 <div className="col-xl-4 col-lg-6 col-md-6 col-12 pb-5">
                   <div className="card">
                     <img
@@ -81,24 +81,24 @@ const Teammembers = ({ isAdmin }: Props) => {
                         <div className="nav nav-tabs">
                           <button
                             className="nav-link active txt-3-dp"
-                            id={`nav-${detail.name + "1"}-tab`}
+                            id={`nav-${detail.id + "1"}-tab`}
                             data-bs-toggle="tab"
-                            data-bs-target={`#nav-${detail.name + "1"}`}
+                            data-bs-target={`#nav-${detail.id + "1"}`}
                             type="button"
                             role="tab"
-                            aria-controls={`nav-${detail.name + "1"}`}
+                            aria-controls={`nav-${detail.id + "1"}`}
                             aria-selected="true"
                           >
                             Industry
                           </button>
                           <button
                             className="nav-link txt-3-dp"
-                            id={`nav-${detail.name + "2"}-tab`}
+                            id={`nav-${detail.id + "2"}-tab`}
                             data-bs-toggle="tab"
-                            data-bs-target={`#nav-${detail.name + "2"}`}
+                            data-bs-target={`#nav-${detail.id + "2"}`}
                             type="button"
                             role="tab"
-                            aria-controls={`nav-${detail.name + "2"}`}
+                            aria-controls={`nav-${detail.id + "2"}`}
                             aria-selected="true"
                           >
                             Superpowers
@@ -137,9 +137,9 @@ const Teammembers = ({ isAdmin }: Props) => {
                       >
                         <div
                           className="container  tab-pane show active fade"
-                          id={`nav-${detail.name + "1"}`}
+                          id={`nav-${detail.id + "1"}`}
                           role="tabpanel"
-                          aria-labelledby={`nav-${detail.name + "1"}-tab`}
+                          aria-labelledby={`nav-${detail.id + "1"}-tab`}
                           tabIndex={0}
                         >
                           <br />
@@ -249,9 +249,9 @@ const Teammembers = ({ isAdmin }: Props) => {
                         </div>
                         <div
                           className="container  tab-pane show active tab-pane1 fade"
-                          id={`nav-${detail.name + "2"}`}
+                          id={`nav-${detail.id + "2"}`}
                           role="tabpanel"
-                          aria-labelledby={`nav-${detail.name + "2"}-tab`}
+                          aria-labelledby={`nav-${detail.id + "2"}-tab`}
                           tabIndex={0}
                         >
                           <br />

@@ -156,7 +156,7 @@ const Home = () => {
                         </p>
                         <div className="banner-links">
                           <a
-                            href="http://gimsindia.in/products"
+                            href="https://gimsindia.in/products"
                             className="btn-style-2"
                           >
                             Learn More{" "}
@@ -186,7 +186,7 @@ const Home = () => {
                         </p>
                         <div className="banner-links">
                           <a
-                            href="http://gimsindia.in/products"
+                            href="https://gimsindia.in/products"
                             className="btn-style-2"
                           >
                             Learn More{" "}

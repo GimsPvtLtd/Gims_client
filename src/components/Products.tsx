@@ -165,7 +165,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -195,7 +195,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -236,7 +236,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -266,7 +266,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -306,7 +306,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -336,7 +336,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -376,7 +376,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">
@@ -406,7 +406,7 @@ const Products = () => {
                               <div className="card-body">
                                 <p className="txt-3-bold">{product.name}</p>
                                 <p className="body-bold py-2 product-descrip">
-                                  {product.description}
+                                  {product.description.split("###")[0]}
                                 </p>
                                 <div className="banner-links">
                                   <a href={`/product/${product.id}`} className="btn-style-2">

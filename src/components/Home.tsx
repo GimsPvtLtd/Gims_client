@@ -23,8 +23,8 @@ const Home = () => {
 
     axios(config)
       .then(function (response: any) {
-        let fltrdata = response.data.filter((product: Product) => {
-          return product.presentInHomePage;
+        let fltrdata = response.data.filter((product: any) => {
+          return product.presentinhomepage;
         });
 
         setData(fltrdata);

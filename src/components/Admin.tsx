@@ -12,6 +12,7 @@ import AddUser from "./AddUser";
 import AddTimesheet from "./AddTimesheet";
 import ApplyLeave from "./ApplyLeave";
 import LeaveAdmin from "./LeaveAdmin";
+import ChangePassword from "./ChangePassword";
 
 const Admin = () => {
   return (
@@ -43,7 +44,7 @@ const Admin = () => {
                         aria-controls="nav-menu1"
                         aria-selected="true"
                       >
-                        <p className="body-sm">Team Page</p>
+                        <p className="body-sm">Team</p>
                       </button>
                       <button
                         className="nav-link"
@@ -79,7 +80,7 @@ const Admin = () => {
                         aria-controls="nav-menu4"
                         aria-selected="false"
                       >
-                        <p className="body-sm">Career Page</p>
+                        <p className="body-sm">Career</p>
                       </button>
                       <button
                         className="nav-link"
@@ -116,6 +117,18 @@ const Admin = () => {
                         aria-selected="false"
                       >
                         <p className="body-sm">Apply Leave</p>
+                      </button>
+                      <button
+                        className="nav-link"
+                        id="nav-menu8-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-menu8"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-menu8"
+                        aria-selected="false"
+                      >
+                        <p className="body-sm">Password</p>
                       </button>
                     </div>
                   </nav>
@@ -201,6 +214,17 @@ const Admin = () => {
                 >
                   <div className="row justify-content-center">
                     <LeaveAdmin />
+                  </div>
+                </div>
+                <div
+                  className="container tab-pane fade"
+                  id="nav-menu8"
+                  role="tabpanel"
+                  aria-labelledby="nav-menu8-tab"
+                  tabIndex={0}
+                >
+                  <div className="row justify-content-center">
+                    <ChangePassword />
                   </div>
                 </div>
               </div>

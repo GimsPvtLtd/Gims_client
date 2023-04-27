@@ -18,6 +18,7 @@ import Cookies from "universal-cookie";
 import CareerPage from "./components/CareerPage";
 import SubmitRequirement from "./components/SubmitRequirement";
 import EditTeam from "./components/EditTeam";
+import EditProduct from "./components/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,10 @@ const routerAdmin = createBrowserRouter([
   {
     path: "/editteam/:id",
     element: <EditTeam />,
+  },
+  {
+    path: "/editproduct/:id",
+    element: <EditProduct />,
   },
 ]);
 

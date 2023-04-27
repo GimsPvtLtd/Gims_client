@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useContext } from "react";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { Product } from "../utils";
 import { Usercontext } from "../utils/Context";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [data, setData] = React.useState([]);
-
+  const navigate = useNavigate();
   React.useEffect(() => {
     var axios = require("axios");
     var config = {
@@ -358,6 +359,12 @@ const AddProduct = () => {
                       >
                         Upload Images/FAQs
                       </a>
+                      <button
+                        className="btn btn-success col-2 mx-2"
+                        onClick={() => navigate(`/editproduct/${product.id}`)}
+                      >
+                        <FaEdit />
+                      </button>
                       <button
                         className="btn btn-danger col-2 mx-2"
                         onClick={() => handledelete(product.id)}

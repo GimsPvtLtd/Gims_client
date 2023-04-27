@@ -9,7 +9,7 @@ import { Usercontext } from "../utils/Context";
 
 const ProductPage = () => {
   const { id } = useParams();
-  const [data, setData] = useState<Product>();
+  const [data, setData] = useState<any>();
   const [des, setDes] = useState<String[]>();
   const [faq, setFaq] = useState<faq[]>();
   const [imgs, setImages] = useState<image[]>();
@@ -92,7 +92,7 @@ const ProductPage = () => {
           <div className="row align-items-center">
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 text-light">
               <h1 className="txt-1">
-                {data?.name?.split(" ").map((name) => {
+                {data?.name?.split(" ").map((name : any) => {
                   return (
                     <Fragment>
                       {name} <br />
@@ -137,16 +137,16 @@ const ProductPage = () => {
               )}
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 mt-md-0 mt-5">
-              {data?.youtubeId && (
+              {data && data.youtubeid && (
                 <iframe
                   width="100%"
                   height="350"
-                  src={`https://www.youtube.com/embed/${data.youtubeId}`}
+                  src={`https://www.youtube.com/embed/${data.youtubeid}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   title="Embedded youtube"
                 />
-              )}
+               )}
               <br />
               <br />
               {imgs && imgs.length > 0 && (

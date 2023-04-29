@@ -97,7 +97,7 @@ export interface career {
   location?: string;
 }
 
-export const ROLES = ["ADMIN", "ENGINEER", "OTHER"];
+export const ROLES = ["ADMIN", "ENGINEER", "MARKETING","INTERN","TECHNICIAN","HR"];
 
 export interface User {
   userid?: string;

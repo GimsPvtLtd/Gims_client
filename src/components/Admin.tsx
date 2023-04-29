@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import NavBar from "./NavBar";
 import "../styles/Admin.css";
 import Teammembers from "./Teammembers";
@@ -13,8 +13,10 @@ import AddTimesheet from "./AddTimesheet";
 import ApplyLeave from "./ApplyLeave";
 import LeaveAdmin from "./LeaveAdmin";
 import ChangePassword from "./ChangePassword";
+import { Usercontext } from "../utils/Context";
 
 const Admin = () => {
+  const { auth } = useContext(Usercontext);
   return (
     <Fragment>
       <NavBar />
@@ -34,66 +36,80 @@ const Admin = () => {
                       id="nav-tab"
                       role="tablist"
                     >
-                      <button
-                        className="nav-link active"
-                        id="nav-menu1-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu1"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu1"
-                        aria-selected="true"
-                      >
-                        <p className="body-sm">Team</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu2-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu2"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu2"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Product</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu3-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu3"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu3"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Services</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu4-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu4"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu4"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Career</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu5-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu5"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu5"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Create User</p>
-                      </button>
+                      {auth?.user?.role === "ADMIN" && (
+                        <button
+                          className="nav-link active"
+                          id="nav-menu1-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-menu1"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-menu1"
+                          aria-selected="true"
+                        >
+                          <p className="body-sm">Team</p>
+                        </button>
+                      )}
+                      {(auth?.user?.role === "ADMIN" ||
+                        auth?.user?.role === "MARKETING") && (
+                        <button
+                          className="nav-link"
+                          id="nav-menu2-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-menu2"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-menu2"
+                          aria-selected="false"
+                        >
+                          <p className="body-sm">Product</p>
+                        </button>
+                      )}
+                      {(auth?.user?.role === "ADMIN" ||
+                        auth?.user?.role === "TECHNICIAN" ||
+                        auth?.user?.role === "ENGINEER") && (
+                        <button
+                          className="nav-link"
+                          id="nav-menu3-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-menu3"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-menu3"
+                          aria-selected="false"
+                        >
+                          <p className="body-sm">Services</p>
+                        </button>
+                      )}
+                      {(auth?.user?.role === "ADMIN" ||
+                        auth?.user?.role === "HR") && (
+                        <button
+                          className="nav-link"
+                          id="nav-menu4-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-menu4"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-menu4"
+                          aria-selected="false"
+                        >
+                          <p className="body-sm">Career</p>
+                        </button>
+                      )}
+                      {auth?.user?.role === "ADMIN" && (
+                        <button
+                          className="nav-link"
+                          id="nav-menu5-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-menu5"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-menu5"
+                          aria-selected="false"
+                        >
+                          <p className="body-sm">Create User</p>
+                        </button>
+                      )}
                       <button
                         className="nav-link"
                         id="nav-menu6-tab"

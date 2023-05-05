@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import "../styles/RequirementPage.css";
+import { useParams } from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 const SubmitRequirement = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -26,6 +28,27 @@ const SubmitRequirement = () => {
     requirements: "",
     file: new File([""], ""),
   });
+  useEffect(() => {
+    if (id) {
+      var axios = require("axios");
+      var config = {
+        method: "get",
+        url: `${process.env.REACT_APP_BACKEND_URL}/service/${id}`,
+      };
+
+      axios(config)
+        .then(function (response: any) {
+          setFormData({
+            ...formData,
+          name: response.data[0].name,
+          });
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
+    }
+  }, []);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
@@ -54,6 +77,7 @@ const SubmitRequirement = () => {
     data.append("fieldofservice", formData.fieldOfService);
     data.append("requirements", formData.requirements);
     data.append("requirement", formData.file);
+    data.append("id", id);
 
     var config = {
       method: "post",
@@ -91,6 +115,7 @@ const SubmitRequirement = () => {
                 aria-describedby="name"
                 value={formData.name}
                 onChange={handleChange}
+                disabled = {id != null}
               />
             </div>
             <div className="mb-1">
@@ -104,6 +129,7 @@ const SubmitRequirement = () => {
                 aria-describedby="cname"
                 value={formData.companyName}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="mb-1">
@@ -117,6 +143,7 @@ const SubmitRequirement = () => {
                 aria-describedby="designation"
                 value={formData.designation}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="mb-1">
@@ -130,6 +157,7 @@ const SubmitRequirement = () => {
                 aria-describedby="email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="mb-1">
@@ -167,10 +195,11 @@ const SubmitRequirement = () => {
                 aria-describedby="mobile"
                 value={formData.fieldOfService}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="mb-1">
-              <label htmlFor="Requirements" className="form-label">
+              <label htmlFor="Requirements" className="form-label" aria-required>
                 Requirements
               </label>
               <input
@@ -180,6 +209,7 @@ const SubmitRequirement = () => {
                 aria-describedby="requirements"
                 value={formData.requirements}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="mb-1">

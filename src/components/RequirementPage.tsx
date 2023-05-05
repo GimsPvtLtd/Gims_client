@@ -80,8 +80,22 @@ const RequirementPage = () => {
               </tr>
               <tr>
                 <th scope="row">Task Status : </th>
-                <td><h5>
-                    <span className="badge rounded-pill bg-danger">Pending</span></h5></td>
+                <td>
+                  <h5>
+                    <span className={data?.status === "PENDING" ? "badge rounded-pill bg-danger" : "badge rounded-pill bg-success"}>
+                      {data?.status}
+                    </span>
+                    {data?.completedby ? (
+                      <span className="badge rounded-pill bg-warning">
+                        ASSIGNED
+                      </span>
+                    ) : (
+                      <span className="badge rounded-pill bg-secondary mx-2">
+                        NOT ASSIGNED
+                      </span>
+                    )}
+                  </h5>
+                </td>
               </tr>
               <tr>
                 <th colSpan={2} className="text-center">

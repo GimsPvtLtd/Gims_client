@@ -14,6 +14,7 @@ import ApplyLeave from "./ApplyLeave";
 import LeaveAdmin from "./LeaveAdmin";
 import ChangePassword from "./ChangePassword";
 import { Usercontext } from "../utils/Context";
+import TaskAdmin from "./TaskAdmin";
 
 const Admin = () => {
   const { auth } = useContext(Usercontext);
@@ -60,7 +61,7 @@ const Admin = () => {
                           type="button"
                           role="tab"
                           aria-controls="nav-menu2"
-                          aria-selected="false"
+                          aria-selected={auth?.user?.role === "MARKETING"}
                         >
                           <p className="body-sm">Product</p>
                         </button>
@@ -76,7 +77,10 @@ const Admin = () => {
                           type="button"
                           role="tab"
                           aria-controls="nav-menu3"
-                          aria-selected="false"
+                          aria-selected={
+                            auth?.user?.role === "TECHNICIAN" ||
+                            auth?.user?.role === "ENGINEER"
+                          }
                         >
                           <p className="body-sm">Services</p>
                         </button>
@@ -91,7 +95,7 @@ const Admin = () => {
                           type="button"
                           role="tab"
                           aria-controls="nav-menu4"
-                          aria-selected="false"
+                          aria-selected={auth?.user?.role === "HR"}
                         >
                           <p className="body-sm">Career</p>
                         </button>
@@ -118,9 +122,9 @@ const Admin = () => {
                         type="button"
                         role="tab"
                         aria-controls="nav-menu6"
-                        aria-selected="false"
+                        aria-selected={auth?.user?.role === undefined}
                       >
-                        <p className="body-sm">TimeSheet</p>
+                        <p className="body-sm">Tasks</p>
                       </button>
                       <button
                         className="nav-link"
@@ -151,74 +155,104 @@ const Admin = () => {
                 </div>
               </div>
               <div className="tab-content" id="nav-tabContent">
-                <div
-                  className="container tab-pane fade show active"
-                  id="nav-menu1"
-                  role="tabpanel"
-                  aria-labelledby="nav-menu1-tab"
-                  tabIndex={0}
-                >
-                  <div className="row justify-content-center p-3">
-                    <h3 className="mt-2">Add Team Member</h3>
-                    <AddTeam />
+                {auth?.user?.role === "ADMIN" && (
+                  <div
+                    className="container tab-pane fade show active"
+                    id="nav-menu1"
+                    role="tabpanel"
+                    aria-labelledby="nav-menu1-tab"
+                    tabIndex={0}
+                  >
+                    <div className="row justify-content-center p-3">
+                      <h3 className="mt-2">Add Team Member</h3>
+                      <AddTeam />
+                    </div>
+                    <Teammembers isAdmin={true} />
                   </div>
-                  <Teammembers isAdmin={true} />
-                </div>
-                <div
-                  className="container tab-pane fade"
-                  id="nav-menu2"
-                  role="tabpanel"
-                  aria-labelledby="nav-menu2-tab"
-                  tabIndex={0}
-                >
-                  <div className="row justify-content-center">
-                    <h3 className="mt-2">Add Product</h3>
-                    <AddProduct />
+                )}
+                {(auth?.user?.role === "ADMIN" ||
+                  auth?.user?.role === "MARKETING") && (
+                  <div
+                    className={
+                      auth?.user?.role === "MARKETING"
+                        ? "container tab-pane fade show active"
+                        : "container tab-pane fade"
+                    }
+                    id="nav-menu2"
+                    role="tabpanel"
+                    aria-labelledby="nav-menu2-tab"
+                    tabIndex={0}
+                  >
+                    <div className="row justify-content-center">
+                      <h3 className="mt-2">Add Product</h3>
+                      <AddProduct />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="container tab-pane fade"
-                  id="nav-menu3"
-                  role="tabpanel"
-                  aria-labelledby="nav-menu3-tab"
-                  tabIndex={0}
-                >
-                  <div className="row justify-content-center">
-                    <ServicesAdmin />
+                )}
+                {(auth?.user?.role === "ADMIN" ||
+                  auth?.user?.role === "TECHNICIAN" ||
+                  auth?.user?.role === "ENGINEER") && (
+                  <div
+                    className={
+                      auth?.user?.role === "TECHNICIAN" ||
+                      auth?.user?.role === "ENGINEER"
+                        ? "container tab-pane fade show active"
+                        : "container tab-pane fade"
+                    }
+                    id="nav-menu3"
+                    role="tabpanel"
+                    aria-labelledby="nav-menu3-tab"
+                    tabIndex={0}
+                  >
+                    <div className="row justify-content-center">
+                      <ServicesAdmin />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="container tab-pane fade"
-                  id="nav-menu4"
-                  role="tabpanel"
-                  aria-labelledby="nav-menu4-tab"
-                  tabIndex={0}
-                >
-                  <div className="row justify-content-center">
-                    <CareerAdmin />
+                )}
+                {(auth?.user?.role === "ADMIN" ||
+                  auth?.user?.role === "HR") && (
+                  <div
+                    className={
+                      auth?.user?.role === "HR"
+                        ? "container tab-pane fade show active"
+                        : "container tab-pane fade"
+                    }
+                    id="nav-menu4"
+                    role="tabpanel"
+                    aria-labelledby="nav-menu4-tab"
+                    tabIndex={0}
+                  >
+                    <div className="row justify-content-center">
+                      <CareerAdmin />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="container tab-pane fade"
-                  id="nav-menu5"
-                  role="tabpanel"
-                  aria-labelledby="nav-menu5-tab"
-                  tabIndex={0}
-                >
-                  <div className="row justify-content-center">
-                    <AddUser />
+                )}
+                {auth?.user?.role === "ADMIN" && (
+                  <div
+                    className="container tab-pane fade"
+                    id="nav-menu5"
+                    role="tabpanel"
+                    aria-labelledby="nav-menu5-tab"
+                    tabIndex={0}
+                  >
+                    <div className="row justify-content-center">
+                      <AddUser />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div
-                  className="container tab-pane fade"
+                  className={
+                    auth?.user?.role
+                      ? "container tab-pane fade"
+                      : "container tab-pane fade show active"
+                  }
                   id="nav-menu6"
                   role="tabpanel"
                   aria-labelledby="nav-menu6-tab"
                   tabIndex={0}
                 >
                   <div className="row justify-content-center">
-                    <h3 className="mt-4">Upload TimeSheet</h3>
-                    <AddTimesheet />
+                   <TaskAdmin />
                   </div>
                 </div>
                 <div

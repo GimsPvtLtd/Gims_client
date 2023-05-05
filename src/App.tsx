@@ -69,6 +69,10 @@ const router = createBrowserRouter([
     path: "/submitrequirement",
     element: <SubmitRequirement />,
   },
+  {
+    path: "/submitrequirement/:id",
+    element: <SubmitRequirement />,
+  },
 ]);
 const routerAdmin = createBrowserRouter([
   {
@@ -129,6 +133,10 @@ const routerAdmin = createBrowserRouter([
   },
   {
     path: "/submitrequirement",
+    element: <SubmitRequirement />,
+  },
+  {
+    path: "/submitrequirement/:id",
     element: <SubmitRequirement />,
   },
   {

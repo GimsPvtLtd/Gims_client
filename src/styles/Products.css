@@ -34,7 +34,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 @media screen and (min-width: 769px) {

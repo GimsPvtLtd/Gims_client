@@ -11,6 +11,7 @@ const ProductPage = () => {
   const { id } = useParams();
   const [data, setData] = useState<any>();
   const [des, setDes] = useState<String[]>();
+  const [specs,setSpec] = useState<String[]>();
   const [faq, setFaq] = useState<faq[]>();
   const [imgs, setImages] = useState<image[]>();
   const { auth } = useContext(Usercontext);
@@ -47,6 +48,11 @@ const ProductPage = () => {
       .then(function (response: any) {
         setData(response.data[0]);
         setDes(response.data[0].description.split("###"));
+        var des : string []= response.data[0].description.split("###");
+        var spec = des.slice(1).filter((spec)=>{
+          return spec.split(":").length > 1 && spec.split(":")[0].trim() && spec.split(":")[1].trim();
+        })
+        setSpec(spec);
       })
       .catch(function (error: any) {
         console.log(error);
@@ -92,7 +98,7 @@ const ProductPage = () => {
           <div className="row align-items-center">
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 text-light">
               <h1 className="txt-1">
-                {data?.name?.split(" ").map((name : any) => {
+                {data?.name?.split(" ").map((name: any) => {
                   return (
                     <Fragment>
                       {name} <br />
@@ -100,15 +106,17 @@ const ProductPage = () => {
                   );
                 })}
               </h1>
-              <div className="banner-links pt-5">
-                <a
-                  href={`${process.env.REACT_APP_BACKEND_URL}/products/${data?.brochure}`}
-                  target={"_blank"}
-                  className="btn-style btn-1"
-                >
-                  Download Brochure <FaArrowRight />
-                </a>
-              </div>
+              {data && data?.brochure && (
+                <div className="banner-links pt-5">
+                  <a
+                    href={`${process.env.REACT_APP_BACKEND_URL}/products/${data?.brochure}`}
+                    target={"_blank"}
+                    className="btn-style btn-1"
+                  >
+                    Download Brochure <FaArrowRight />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -146,7 +154,7 @@ const ProductPage = () => {
                   allowFullScreen
                   title="Embedded youtube"
                 />
-               )}
+              )}
               <br />
               <br />
               {imgs && imgs.length > 0 && (
@@ -249,7 +257,7 @@ const ProductPage = () => {
           </div>
         </section>
       )}
-      {des && des?.length > 1 && (
+      {specs && specs?.length > 0 && (
         <section className="specs-sec pt-5 pb-5">
           <div className="container">
             <div className="row">
@@ -260,8 +268,8 @@ const ProductPage = () => {
               <div className="col-xl-12 col-lg-12 col-md-12 col-12 pt-3 pb-5">
                 <table width="100%" className="table">
                   <tbody>
-                    {des &&
-                      des.slice(1).map(
+                    {specs && specs.length > 0 &&
+                      specs.map(
                         (spec) =>
                           spec && (
                             <tr>

@@ -2,17 +2,19 @@ import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Timesheet } from "../utils";
 import { Usercontext } from "../utils/Context";
 import { FaTrash } from "react-icons/fa";
+import Moment from "moment";
 import { PieChart } from "react-minimal-pie-chart";
+import moment from "moment";
 
 const AddTimesheet = () => {
   const [activity, setActivity] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(0.0);
   const [description, setDescription] = useState("");
   const { auth } = useContext(Usercontext);
   const [data, setData] = useState<Timesheet[]>([]);
-  let hrs: number = 0;
+  let hrs: number = 0.0;
   const handledelete = (id: any) => {
     var axios = require("axios");
 
@@ -38,7 +40,8 @@ const AddTimesheet = () => {
 
     var config = {
       method: "get",
-      url: process.env.REACT_APP_BACKEND_URL + `/timesheet/${auth?.user?.userid}`,
+      url:
+        process.env.REACT_APP_BACKEND_URL + `/timesheet/${auth?.user?.userid}`,
       headers: {
         authorization: auth?.token,
       },
@@ -120,7 +123,15 @@ const AddTimesheet = () => {
               type="datetime-local"
               className="form-control"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={(e) => {
+                if(endDate){
+                  var start = Moment(e.target.value)
+                  var end = Moment(endDate);
+                  var dur = moment.duration(end.diff(start)).asHours();
+                  setDuration(parseFloat(dur.toFixed(2)))
+                }
+                setStartDate(e.target.value);
+              }}
             />
           </div>
           <div className="col-xl-4 col-lg-12 col-md-12 col-12 my-2">
@@ -129,7 +140,15 @@ const AddTimesheet = () => {
               type="datetime-local"
               className="form-control"
               value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e) => {
+                if (startDate) {
+                  var start = Moment(startDate);
+                  var end = Moment(e.target.value);
+                  var dur = moment.duration(end.diff(start)).asHours();
+                  setDuration(parseFloat(dur.toFixed(2)));
+                }
+                setEndDate(e.target.value);
+              }}
             />
           </div>
           <div className="col-xl-4 col-lg-12 col-md-12 col-12 my-2">
@@ -138,7 +157,7 @@ const AddTimesheet = () => {
               type="number"
               className="form-control"
               value={duration}
-              onChange={(e) => setDuration(e.target.value)}
+              disabled
             />
           </div>
           <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-2">
@@ -176,13 +195,17 @@ const AddTimesheet = () => {
             </thead>
             <tbody>
               {data.map((time, ind) => {
-                if (time.noofhours) hrs += parseInt(time.noofhours);
+                if (time.noofhours) hrs += parseFloat(time.noofhours);
                 return (
                   <tr key={time.id}>
                     <th scope="row">{ind + 1}</th>
                     <td>{time.activity}</td>
-                    <td>{time.starttime}</td>
-                    <td>{time.endtime}</td>
+                    <td>
+                      {Moment(time.starttime).format("MMMM Do YYYY, h:mm:ss a")}
+                    </td>
+                    <td>
+                      {Moment(time.endtime).format("MMMM Do YYYY, h:mm:ss a")}
+                    </td>
                     <td>{time.noofhours}</td>
                     <td>{time.description}</td>
                     <td>{time.updatedon}</td>

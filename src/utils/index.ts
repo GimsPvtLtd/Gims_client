@@ -70,6 +70,10 @@ export interface requirements {
   requirements?: string;
   filelocation?: string;
   date?: any;
+  serviceid ?: any;
+  completedby ?: any;
+  status ?: any;
+  completedon ?: any;
 }
 export interface applications {
   id?: string;

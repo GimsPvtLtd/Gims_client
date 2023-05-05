@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import { Timesheet } from "../utils";
 import { PieChart } from "react-minimal-pie-chart";
 import { Usercontext } from "../utils/Context";
-import "../styles/Home.css"
-interface Activity{
-  title : string;
-  value : number;
-  color : string;
+import "../styles/Home.css";
+import Moment from "moment";
+interface Activity {
+  title: string;
+  value: number;
+  color: string;
 }
 const DisplayTimesheet = () => {
   const { id } = useParams();
@@ -18,7 +19,21 @@ const DisplayTimesheet = () => {
   const search = window.location.search;
   const params = new URLSearchParams(search);
   const usr = params.get("usr");
-  const colors = ["gray", "silver", "maroon", "red", "purple", "fushsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal"]
+  const colors = [
+    "gray",
+    "silver",
+    "maroon",
+    "red",
+    "purple",
+    "fushsia",
+    "green",
+    "lime",
+    "olive",
+    "yellow",
+    "navy",
+    "blue",
+    "teal",
+  ];
   let hrs: number = 0;
   useEffect(() => {
     var axios = require("axios");
@@ -37,28 +52,30 @@ const DisplayTimesheet = () => {
       .catch(function (error: any) {
         console.log(error);
       });
-      var config2 = {
-        method: "get",
-        url: process.env.REACT_APP_BACKEND_URL +`/timesheetactivity/${id}`,
-        headers: {
-          authorization: auth?.token,
-        },
-      };
-  
-      axios(config2)
-        .then(function (response: any) {
-          let activitydata : Activity[] = [];
-          response.data.map((data : any,ind : any) =>{
-            activitydata.push({title : data.activity,color : colors[ind],value :data.hours})
-          })
-          console.log(activitydata)
-          setActivity(activitydata);
-        })
-        .catch(function (error: any) {
-          console.log(error);
+    var config2 = {
+      method: "get",
+      url: process.env.REACT_APP_BACKEND_URL + `/timesheetactivity/${id}`,
+      headers: {
+        authorization: auth?.token,
+      },
+    };
+
+    axios(config2)
+      .then(function (response: any) {
+        let activitydata: Activity[] = [];
+        response.data.map((data: any, ind: any) => {
+          activitydata.push({
+            title: data.activity,
+            color: colors[ind],
+            value: data.hours,
+          });
         });
+        setActivity(activitydata);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
   }, []);
-  console.log(activity)
   return (
     <Fragment>
       <NavBar />
@@ -80,13 +97,19 @@ const DisplayTimesheet = () => {
               </thead>
               <tbody>
                 {data.map((time, ind) => {
-                  if (time.noofhours) hrs += parseInt(time.noofhours);
+                  if (time.noofhours) hrs += parseFloat(time.noofhours);
                   return (
                     <tr key={time.id}>
                       <th scope="row">{ind + 1}</th>
                       <th>{time.activity}</th>
-                      <td>{time.starttime}</td>
-                      <td>{time.endtime}</td>
+                      <td>
+                        {Moment(time.starttime).format(
+                          "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                      </td>
+                      <td>
+                        {Moment(time.endtime).format("MMMM Do YYYY, h:mm:ss a")}
+                      </td>
                       <td>{time.noofhours}</td>
                       <td>{time.description}</td>
                       <td>{time.updatedon}</td>
@@ -112,7 +135,7 @@ const DisplayTimesheet = () => {
           <PieChart
             data={activity}
             label={(dataEntry) =>
-              dataEntry.dataEntry.title + " : "  + dataEntry.dataEntry.value
+              dataEntry.dataEntry.title + " : " + dataEntry.dataEntry.value
             }
             totalValue={hrs}
           />

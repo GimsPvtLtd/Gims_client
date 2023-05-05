@@ -57,7 +57,7 @@
 }
 .industry-sec .card-body {
   background: transparent !important;
-  border: 1px solid var(--border);
+  /* border: 1px solid var(--border); */
 }
 
 .modal-body .card {

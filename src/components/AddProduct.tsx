@@ -323,7 +323,6 @@ const AddProduct = () => {
                 onChange={(e: any) => {
                   setFile(e.target.files[0]);
                 }}
-                required
               />
             </div>
           </div>

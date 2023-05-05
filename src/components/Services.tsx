@@ -83,7 +83,7 @@ const Services = () => {
     var config = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + "/service",
-      headers : {},
+      headers: {},
     };
 
     axios(config)
@@ -101,7 +101,7 @@ const Services = () => {
       method: "delete",
       url: `${process.env.REACT_APP_BACKEND_URL}/service/${id}`,
       headers: {
-        authorization : auth?.token
+        authorization: auth?.token,
       },
     };
 
@@ -114,15 +114,21 @@ const Services = () => {
         console.log(error);
       });
   };
-  const rnd = data && data.filter((ser) => {
-    return ser.servicetype === "R&D";
-  });
-  const ma = data && data.filter((ser) => {
-    return ser.servicetype === "Manufacturing and automation";
-  });
-  const design =data && data.filter((ser) => {
-    return ser.servicetype === "Design";
-  });
+  const rnd =
+    data &&
+    data.filter((ser) => {
+      return ser.servicetype === "R&D";
+    });
+  const ma =
+    data &&
+    data.filter((ser) => {
+      return ser.servicetype === "Manufacturing and automation";
+    });
+  const design =
+    data &&
+    data.filter((ser) => {
+      return ser.servicetype === "Design";
+    });
   const navigate = useNavigate();
   return (
     <Fragment>
@@ -166,7 +172,7 @@ const Services = () => {
                           className="card-img-top"
                           src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
-                        <div className="card-body">
+                        <div className="card-body row justify-content-center">
                           <p className="txt-3-dp text-center">{ser.name}</p>
                           <div className="row justify-content-center">
                             {auth && auth.user?.role === "ADMIN" && (
@@ -177,6 +183,19 @@ const Services = () => {
                                 <FaTrash />
                               </button>
                             )}
+                          </div>
+                          <div className="col-12 text-center pt-2">
+                            <div>
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() =>
+                                  navigate(`/submitrequirement/${ser.id}`)
+                                }
+                              >
+                                Submit requirement
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -207,7 +226,7 @@ const Services = () => {
                           className="card-img-top"
                           src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
-                        <div className="card-body">
+                        <div className="card-body row justify-content-center">
                           <p className="txt-3-dp text-center">{ser.name}</p>
                           <div className="row justify-content-center">
                             {auth && auth.user?.role === "ADMIN" && (
@@ -218,6 +237,19 @@ const Services = () => {
                                 <FaTrash />
                               </button>
                             )}
+                          </div>
+                          <div className="col-12 text-center pt-2">
+                            <div>
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() =>
+                                  navigate(`/submitrequirement/${ser.id}`)
+                                }
+                              >
+                                Submit requirement
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -248,7 +280,7 @@ const Services = () => {
                           className="card-img-top"
                           src={`${process.env.REACT_APP_BACKEND_URL}/services/${ser.imglocation}`}
                         />
-                        <div className="card-body">
+                        <div className="card-body row justify-content-center">
                           <p className="txt-3-dp text-center">{ser.name}</p>
                           <div className="row justify-content-center">
                             {auth && auth.user?.role === "ADMIN" && (
@@ -259,6 +291,19 @@ const Services = () => {
                                 <FaTrash />
                               </button>
                             )}
+                          </div>
+                          <div className="col-12 text-center pt-2">
+                            <div>
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() =>
+                                  navigate(`/submitrequirement/${ser.id}`)
+                                }
+                              >
+                                Submit requirement
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -315,7 +360,7 @@ const Services = () => {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={()=> navigate("/submitrequirement")}
+                    onClick={() => navigate("/submitrequirement")}
                   >
                     Submit requirements
                   </button>

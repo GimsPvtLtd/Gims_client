@@ -35,9 +35,9 @@ const LeaveAdmin = () => {
     var config = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + `/leave/${auth?.user?.userid}`,
-      headers :{
+      headers: {
         authorization: auth?.token,
-      }
+      },
     };
 
     axios(config)
@@ -50,9 +50,9 @@ const LeaveAdmin = () => {
     var config2 = {
       method: "get",
       url: process.env.REACT_APP_BACKEND_URL + "/leaves",
-      headers:{
+      headers: {
         authorization: auth?.token,
-      }
+      },
     };
 
     axios(config2)
@@ -128,30 +128,20 @@ const LeaveAdmin = () => {
                     >
                       <p className="body-sm">Applied Leaves</p>
                     </button>
-                    <button
-                      className="nav-link"
-                      id="nav-menu3l-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-menu3l"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-menu3l"
-                      aria-selected="false"
-                    >
-                      <p className="body-sm">Approve Leaves</p>
-                    </button>
-                    {/* <button
-                      className="nav-link"
-                      id="nav-menu4-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#nav-menu4"
-                      type="button"
-                      role="tab"
-                      aria-controls="nav-menu4"
-                      aria-selected="false"
-                    >
-                      <p className="body-sm">Manufacturing Solutions</p>
-                    </button> */}
+                    {auth?.user?.role === "ADMIN" && (
+                      <button
+                        className="nav-link"
+                        id="nav-menu3l-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-menu3l"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-menu3l"
+                        aria-selected="false"
+                      >
+                        <p className="body-sm">Approve Leaves</p>
+                      </button>
+                    )}
                   </div>
                 </nav>
               </div>
@@ -241,97 +231,103 @@ const LeaveAdmin = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="container tab-pane fade"
-                id="nav-menu3l"
-                role="tabpanel"
-                aria-labelledby="nav-menu3l-tab"
-                tabIndex={0}
-              >
-                <div className="row justify-content-center m-2 p-2">
-                  <div className="container">
-                    <table className="table table-striped table-hover table-striped-columns m-2">
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">No of Days</th>
-                            <th scope="col">Purpose of Leave</th>
-                            <th scope="col">Applied On</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {datas.map((time, ind) => {
-                            return (
-                              <tr key={time.id}>
-                                <th scope="row">{ind + 1}</th>
-                                <td>
-                                  {" "}
-                                  {Moment(time.startdate).format("DD-MM-YYYY")}
-                                </td>
-                                <td>
-                                  {" "}
-                                  {Moment(time.enddate).format("DD-MM-YYYY")}
-                                </td>{" "}
-                                <td>{time.noofdays}</td>
-                                <td>{time.reason}</td>
-                                <td>
-                                  {" "}
-                                  {Moment(time.updatedon).format("DD-MM-YYYY")}
-                                </td>
-                                <td>
-                                  {time.isapproved &&
-                                    time.isapproved === "PENDING" && (
-                                      <div className="row">
-                                        <div className="col-6">
-                                          <button
-                                            className="btn btn-success"
-                                            id="APPROVED"
-                                            onClick={(e) =>
-                                              handleClick(e, time.id)
-                                            }
-                                          >
-                                            Approve
-                                          </button>
-                                        </div>
-                                        <div className="col-6">
-                                          <button
-                                            className="btn btn-danger"
-                                            id="REJECTED"
-                                            onClick={(e) =>
-                                              handleClick(e, time.id)
-                                            }
-                                          >
-                                            Reject
-                                          </button>
-                                        </div>
-                                      </div>
-                                    )}
-                                </td>
-                                {time.isapproved != "PENDING" && (
+              {auth?.user?.role === "ADMIN" && (
+                <div
+                  className="container tab-pane fade"
+                  id="nav-menu3l"
+                  role="tabpanel"
+                  aria-labelledby="nav-menu3l-tab"
+                  tabIndex={0}
+                >
+                  <div className="row justify-content-center m-2 p-2">
+                    <div className="container">
+                      <table className="table table-striped table-hover table-striped-columns m-2">
+                        <table className="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Start Date</th>
+                              <th scope="col">End Date</th>
+                              <th scope="col">No of Days</th>
+                              <th scope="col">Purpose of Leave</th>
+                              <th scope="col">Applied On</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {datas.map((time, ind) => {
+                              return (
+                                <tr key={time.id}>
+                                  <th scope="row">{ind + 1}</th>
                                   <td>
-                                    <span
-                                      className={
-                                        time.isapproved == "APPROVED"
-                                          ? "badge rounded-pill text-bg-success"
-                                          : "badge rounded-pill text-bg-danger"
-                                      }
-                                    >
-                                      {time.isapproved}
-                                    </span>
+                                    {" "}
+                                    {Moment(time.startdate).format(
+                                      "DD-MM-YYYY"
+                                    )}
                                   </td>
-                                )}
-                              </tr>
-                            );
-                          })}
-                        </tbody>
+                                  <td>
+                                    {" "}
+                                    {Moment(time.enddate).format("DD-MM-YYYY")}
+                                  </td>{" "}
+                                  <td>{time.noofdays}</td>
+                                  <td>{time.reason}</td>
+                                  <td>
+                                    {" "}
+                                    {Moment(time.updatedon).format(
+                                      "DD-MM-YYYY"
+                                    )}
+                                  </td>
+                                  <td>
+                                    {time.isapproved &&
+                                      time.isapproved === "PENDING" && (
+                                        <div className="row">
+                                          <div className="col-6">
+                                            <button
+                                              className="btn btn-success"
+                                              id="APPROVED"
+                                              onClick={(e) =>
+                                                handleClick(e, time.id)
+                                              }
+                                            >
+                                              Approve
+                                            </button>
+                                          </div>
+                                          <div className="col-6">
+                                            <button
+                                              className="btn btn-danger"
+                                              id="REJECTED"
+                                              onClick={(e) =>
+                                                handleClick(e, time.id)
+                                              }
+                                            >
+                                              Reject
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                  </td>
+                                  {time.isapproved != "PENDING" && (
+                                    <td>
+                                      <span
+                                        className={
+                                          time.isapproved == "APPROVED"
+                                            ? "badge rounded-pill text-bg-success"
+                                            : "badge rounded-pill text-bg-danger"
+                                        }
+                                      >
+                                        {time.isapproved}
+                                      </span>
+                                    </td>
+                                  )}
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
                       </table>
-                    </table>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

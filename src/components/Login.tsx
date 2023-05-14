@@ -30,8 +30,7 @@ const Login = () => {
     axios(config)
       .then(function (response: any) {
         alert(JSON.stringify(response.data.message));
-        if(response.data.user)
-        {
+        if (response.data.user) {
           cookies.set(
             "auth",
             { token: response.data.token, user: response.data.user },
@@ -78,6 +77,20 @@ const Login = () => {
             <br />
             <br />
           </form>
+        </div>
+        <div className="card-footer text-muted">
+          <div className="row">
+            <div className="forgotpass">
+              <h6
+                className="col-6"
+                onClick={() => {
+                  console.log("Hello");
+                }}
+              >
+                Forgot Password ?
+              </h6>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import AddService from "./AddService";
 import { User, requirements } from "../utils";
 import Moment from "moment";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaTrash } from "react-icons/fa";
 import { Usercontext } from "../utils/Context";
 
 const ServicesAdmin = () => {
@@ -45,6 +45,27 @@ const ServicesAdmin = () => {
         console.log(error);
       });
   }, []);
+
+  const handledelete = (id: any) => {
+    var axios = require("axios");
+
+    var config = {
+      method: "delete",
+      url: `${process.env.REACT_APP_BACKEND_URL}/requirement/${id}`,
+      headers: {
+        authorization: auth?.token,
+      },
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -234,9 +255,17 @@ const ServicesAdmin = () => {
                                   href={`/requirement/${req.id}`}
                                 >
                                   <b>
-                                    Show More <FaArrowRight />
+                                    Show More <FaArrowRight /> <br />
                                   </b>
                                 </a>
+                                {auth?.user?.role === "ADMIN" && (
+                                  <button
+                                    className="btn btn-danger m-2 p-2"
+                                    onClick={() => handledelete(req.id)}
+                                  >
+                                    <FaTrash />
+                                  </button>
+                                )}
                               </div>
                               <div className="card-footer text-muted">
                                 <h5>

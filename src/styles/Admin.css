@@ -6,3 +6,10 @@
     justify-content: center;
     align-items: center;
 }
+#nav-tab .nav-link{
+    background-color: #ffc107 !important;
+    padding: 12px;
+    margin-right: 2px;
+    color: white !important;
+    border-radius: 5px;
+}

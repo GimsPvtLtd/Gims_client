@@ -10,3 +10,12 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.forgotpass{
+  border-radius: 10px;
+}
+.forgotpass :hover{
+  cursor: pointer !important;
+  text-decoration: underline;
+  color: blue;
+}

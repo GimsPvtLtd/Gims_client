@@ -127,7 +127,7 @@ const RequirementPage = () => {
                         NOT ASSIGNED
                       </span>
                     )}
-                    {data && data.status === "PENDING" && data.completedby && (
+                    {data && data.status === "PENDING" && data.completedby === auth?.user?.userid && (
                       <span>
                         <button
                           className="btn btn-primary mx-2 btn-sm"

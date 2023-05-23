@@ -26,9 +26,10 @@ const ForgotPassword = () => {
     axios(config)
       .then(function (response: any) {
         alert(JSON.stringify(response.data));
-        setOtpInput(true);
+        if(response.data.message === "Verification OTP sent to mail") setOtpInput(true);
       })
       .catch(function (error: any) {
+        alert(JSON.stringify(error.message))
         console.log(error);
       });
   };

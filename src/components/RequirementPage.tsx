@@ -30,6 +30,33 @@ const RequirementPage = () => {
         console.log(error);
       });
   }, []);
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    var axios = require("axios");
+    var qs = require("qs");
+    var rdata = qs.stringify({
+      status: "InProgress",
+      requirementId: data?.id,
+    });
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_BACKEND_URL + "/updatestatus",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: auth?.token,
+      },
+      data: rdata,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   return (
     <Fragment>
       <NavBar />
@@ -82,7 +109,13 @@ const RequirementPage = () => {
                 <th scope="row">Task Status : </th>
                 <td>
                   <h5>
-                    <span className={data?.status === "PENDING" ? "badge rounded-pill bg-danger" : "badge rounded-pill bg-success"}>
+                    <span
+                      className={
+                        data?.status === "PENDING"
+                          ? "badge rounded-pill bg-danger mx-2"
+                          : "badge rounded-pill bg-success mx-2"
+                      }
+                    >
                       {data?.status}
                     </span>
                     {data?.completedby ? (
@@ -92,6 +125,16 @@ const RequirementPage = () => {
                     ) : (
                       <span className="badge rounded-pill bg-secondary mx-2">
                         NOT ASSIGNED
+                      </span>
+                    )}
+                    {data && data.status === "PENDING" && data.completedby && (
+                      <span>
+                        <button
+                          className="btn btn-primary mx-2 btn-sm"
+                          onClick={handleClick}
+                        >
+                          started working
+                        </button>
                       </span>
                     )}
                   </h5>
@@ -125,6 +168,9 @@ const RequirementPage = () => {
             </tbody>
           </table>
         </div>
+      </section>
+      <section>
+        <h2 className="mt-3 text-center">Complete Task</h2>
       </section>
     </Fragment>
   );

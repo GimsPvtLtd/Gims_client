@@ -81,12 +81,7 @@ const Login = () => {
         <div className="card-footer text-muted">
           <div className="row">
             <div className="forgotpass">
-              <h6
-                className="col-6"
-                onClick={() => {
-                  console.log("Hello");
-                }}
-              >
+              <h6 className="col-6" onClick={() => navigate("/forgotpassword")}>
                 Forgot Password ?
               </h6>
             </div>

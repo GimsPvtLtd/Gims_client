@@ -5,12 +5,19 @@ import Moment from "moment";
 import { FaArrowRight, FaTrash } from "react-icons/fa";
 import { Usercontext } from "../utils/Context";
 
+interface AssignedTask {
+  rname?: string;
+  uname?: string;
+  status?: string;
+  companyname?: string;
+}
 const ServicesAdmin = () => {
   const [data, setData] = useState<requirements[]>();
   const { auth } = useContext(Usercontext);
   const [users, setUsers] = useState<User[]>([]);
   const [assign, setAssign] = useState("");
   const [requirement, setRequriement] = useState("");
+  const [data2, setData2] = useState<AssignedTask[]>();
 
   useEffect(() => {
     var axios = require("axios");
@@ -44,8 +51,22 @@ const ServicesAdmin = () => {
       .catch(function (error: any) {
         console.log(error);
       });
-  }, []);
+    var config3 = {
+      method: "get",
+      url: process.env.REACT_APP_BACKEND_URL + "/assignedtasks",
+      headers: {
+        authorization: auth?.token,
+      },
+    };
 
+    axios(config3)
+      .then(function (response: any) {
+        setData2(response.data);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  }, []);
   const handledelete = (id: any) => {
     var axios = require("axios");
 
@@ -233,7 +254,33 @@ const ServicesAdmin = () => {
                       </button>
                     </div>
                   </form>
-
+                  {data2 && data2.length > 0 && (
+                    <div className="row justify-content-center m-2 p-2">
+                      <table className="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Requirement</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Assigned To</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data2 &&
+                            data2.map((req: AssignedTask, ind) => (
+                              <tr>
+                                <th scope="row">{ind + 1}</th>
+                                <td>{req.rname}</td>
+                                <td>{req.companyname}</td>
+                                <td>{req.uname}</td>
+                                <td>{req.status}</td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                   <div className="row justify-content-center m-2 p-2">
                     {data &&
                       data.map((req: requirements) => (

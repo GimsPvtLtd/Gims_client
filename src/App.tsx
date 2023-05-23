@@ -19,6 +19,7 @@ import CareerPage from "./components/CareerPage";
 import SubmitRequirement from "./components/SubmitRequirement";
 import EditTeam from "./components/EditTeam";
 import EditProduct from "./components/EditProduct";
+import ForgotPassword from "./components/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/submitrequirement/:id",
     element: <SubmitRequirement />,
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPassword />,
   },
 ]);
 const routerAdmin = createBrowserRouter([
@@ -146,6 +151,10 @@ const routerAdmin = createBrowserRouter([
   {
     path: "/editproduct/:id",
     element: <EditProduct />,
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPassword />,
   },
 ]);
 

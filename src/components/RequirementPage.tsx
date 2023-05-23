@@ -10,6 +10,9 @@ const RequirementPage = () => {
   const { id } = useParams();
   const [data, setData] = useState<requirements>();
   const { auth } = useContext(Usercontext);
+  const [email, setEmail] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [link, setLink] = useState("");
 
   useEffect(() => {
     var axios = require("axios");
@@ -25,11 +28,42 @@ const RequirementPage = () => {
     axios(config)
       .then(function (response: any) {
         setData(response.data);
+        setEmail(response.data.email);
       })
       .catch(function (error: any) {
         console.log(error);
       });
   }, []);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    var axios = require("axios");
+    var qs = require("qs");
+    var data = qs.stringify({
+      email,
+      remarks,
+      link,
+      id
+    });
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_BACKEND_URL + "/completeTask",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: auth?.token,
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response: any) {
+        alert(JSON.stringify(response.data));
+        window.location.reload();
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  };
   const handleClick = (e: any) => {
     e.preventDefault();
     var axios = require("axios");
@@ -127,16 +161,18 @@ const RequirementPage = () => {
                         NOT ASSIGNED
                       </span>
                     )}
-                    {data && data.status === "PENDING" && data.completedby === auth?.user?.userid && (
-                      <span>
-                        <button
-                          className="btn btn-primary mx-2 btn-sm"
-                          onClick={handleClick}
-                        >
-                          started working
-                        </button>
-                      </span>
-                    )}
+                    {data &&
+                      data.status === "PENDING" &&
+                      data.completedby === auth?.user?.userid && (
+                        <span>
+                          <button
+                            className="btn btn-primary mx-2 btn-sm"
+                            onClick={handleClick}
+                          >
+                            started working
+                          </button>
+                        </span>
+                      )}
                   </h5>
                 </td>
               </tr>
@@ -170,7 +206,44 @@ const RequirementPage = () => {
         </div>
       </section>
       <section>
-        <h2 className="mt-3 text-center">Complete Task</h2>
+        {data?.completedby === auth?.user?.userid && data?.status !== "COMPLETED" && (
+          <div className="container">
+            <h2 className="mt-3 text-center">Complete Task</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                className="form-control"
+                required
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <br />
+              <textarea
+                className="form-control"
+                value={remarks}
+                rows={5}
+                placeholder="Remarks"
+                onChange={(e) => {
+                  setRemarks(e.target.value);
+                }}
+              />
+              <br />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Drive link"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+              />
+              <br />
+              <button className="btn btn-primary" type="submit">
+                Complete Task
+              </button>
+              <br />
+            </form>
+          </div>
+        )}
       </section>
     </Fragment>
   );

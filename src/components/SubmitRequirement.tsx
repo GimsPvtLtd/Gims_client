@@ -40,7 +40,7 @@ const SubmitRequirement = () => {
         .then(function (response: any) {
           setFormData({
             ...formData,
-          name: response.data[0].name,
+          requirements: response.data[0].name,
           });
         })
         .catch(function (error: any) {
@@ -70,6 +70,7 @@ const SubmitRequirement = () => {
     var FormData = require("form-data");
     var data = new FormData();
     data.append("name", formData.name);
+    data.append("email", formData.email);
     data.append("designation", formData.designation);
     data.append("companyname", formData.companyName);
     data.append("mobile", formData.mobileNumber);
@@ -115,7 +116,6 @@ const SubmitRequirement = () => {
                 aria-describedby="name"
                 value={formData.name}
                 onChange={handleChange}
-                disabled = {id != null}
               />
             </div>
             <div className="mb-1">

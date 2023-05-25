@@ -1,15 +1,25 @@
-.banneradmin-sec{
-    height: 32vh;
-    background-position: bottom;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.banneradmin-sec {
+  height: 32vh;
+  background-position: bottom;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#nav-tab .nav-link{
-    background-color: #ffc107 !important;
-    padding: 12px;
-    margin-right: 2px;
-    color: white !important;
-    border-radius: 5px;
+#nav-tab .nav-link {
+  background-color: #0dcaf0 !important;
+  padding: 12px;
+  margin-right: 2px;
+  color: white !important;
+  border-radius: 5px;
+  height: 40px;
+}
+#nav-tab .nav-link.active {
+  background-color: #ffc107 !important;
+  padding: 12px;
+  margin-right: 2px;
+  color: black  !important;
+  border-radius: 5px;
+  height: 40px;
+
 }

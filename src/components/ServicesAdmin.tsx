@@ -152,7 +152,7 @@ const ServicesAdmin = () => {
                       aria-controls="nav-menu2s"
                       aria-selected="false"
                     >
-                      <p className="body-sm">Requirements</p>
+                      <p className="body-sm">Assign Tasks</p>
                     </button>
                     {/* <button
                       className="nav-link"

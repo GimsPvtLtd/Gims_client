@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
+import Moment from "moment";
+import moment from "moment";
 
 const ApplyLeave = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(0.0);
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,7 +17,7 @@ const ApplyLeave = () => {
       endDate,
       noOfDays: duration,
       userId: "GIMS001",
-      reason:description,
+      reason: description,
       updatedOn: new Date().toISOString(),
     });
     var config = {
@@ -51,7 +53,15 @@ const ApplyLeave = () => {
               type="datetime-local"
               className="form-control"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={(e) => {
+                if (endDate) {
+                  var start = Moment(e.target.value);
+                  var end = Moment(endDate);
+                  var dur = moment.duration(end.diff(start)).asDays();
+                  setDuration(parseFloat(dur.toFixed(1)));
+                }
+                setStartDate(e.target.value);
+              }}
             />
           </div>
           <div className="col-xl-4 col-lg-12 col-md-12 col-12 my-2">
@@ -60,17 +70,20 @@ const ApplyLeave = () => {
               type="datetime-local"
               className="form-control"
               value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e) => {
+                if (startDate) {
+                  var start = Moment(startDate);
+                  var end = Moment(e.target.value);
+                  var dur = moment.duration(end.diff(start)).asDays();
+                  setDuration(parseFloat(dur.toFixed(1)));
+                }
+                setEndDate(e.target.value);
+              }}
             />
           </div>
           <div className="col-xl-4 col-lg-12 col-md-12 col-12 my-2">
             <label className="form-label">No of Days</label>
-            <input
-              type="number"
-              className="form-control"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-            />
+            <input type="number" className="form-control" value={duration} />
           </div>
           <div className="col-xl-12 col-lg-12 col-md-12 col-12 my-2">
             <label className="form-label">Purpose of Leave</label>

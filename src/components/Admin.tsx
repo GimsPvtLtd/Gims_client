@@ -26,7 +26,7 @@ const Admin = () => {
       </section>
       <section className="tab-sec pb-5">
         <div className="container">
-          <div className="row align-items-center">
+          <div className="row align-items-center justify-content-center">
             <div className="col-xl-12 col-lg-12 col-md-12 col-12">
               {/* <!-- Nav Tabs --> */}
               <div className="tab-main">
@@ -37,119 +37,135 @@ const Admin = () => {
                       id="nav-tab"
                       role="tablist"
                     >
-                      {auth?.user?.role === "ADMIN" && (
-                        <button
-                          className="nav-link active"
-                          id="nav-menu1-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#nav-menu1"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-menu1"
-                          aria-selected="true"
-                        >
-                          <p className="body-sm">Team</p>
-                        </button>
-                      )}
-                      {(auth?.user?.role === "ADMIN" ||
-                        auth?.user?.role === "MARKETING") && (
-                        <button
-                          className="nav-link"
-                          id="nav-menu2-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#nav-menu2"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-menu2"
-                          aria-selected={auth?.user?.role === "MARKETING"}
-                        >
-                          <p className="body-sm">Product</p>
-                        </button>
-                      )}
-                      {(auth?.user?.role === "ADMIN" ||
-                        auth?.user?.role === "TECHNICIAN" ||
-                        auth?.user?.role === "ENGINEER") && (
-                        <button
-                          className="nav-link"
-                          id="nav-menu3-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#nav-menu3"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-menu3"
-                          aria-selected={
-                            auth?.user?.role === "TECHNICIAN" ||
-                            auth?.user?.role === "ENGINEER"
-                          }
-                        >
-                          <p className="body-sm">Services</p>
-                        </button>
-                      )}
-                      {(auth?.user?.role === "ADMIN" ||
-                        auth?.user?.role === "HR") && (
-                        <button
-                          className="nav-link"
-                          id="nav-menu4-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#nav-menu4"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-menu4"
-                          aria-selected={auth?.user?.role === "HR"}
-                        >
-                          <p className="body-sm">Career</p>
-                        </button>
-                      )}
-                      {auth?.user?.role === "ADMIN" && (
-                        <button
-                          className="nav-link"
-                          id="nav-menu5-tab"
-                          data-bs-toggle="tab"
-                          data-bs-target="#nav-menu5"
-                          type="button"
-                          role="tab"
-                          aria-controls="nav-menu5"
-                          aria-selected="false"
-                        >
-                          <p className="body-sm">Create User</p>
-                        </button>
-                      )}
-                      <button
-                        className="nav-link"
-                        id="nav-menu6-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu6"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu6"
-                        aria-selected={auth?.user?.role === undefined}
-                      >
-                        <p className="body-sm">Tasks</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu7-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu7"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu7"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Apply Leave</p>
-                      </button>
-                      <button
-                        className="nav-link"
-                        id="nav-menu8-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-menu8"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-menu8"
-                        aria-selected="false"
-                      >
-                        <p className="body-sm">Password</p>
-                      </button>
+                      <div className="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div className="row align-items-center justify-content-center">
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            {auth?.user?.role === "ADMIN" && (
+                              <button
+                                className="nav-link col-12"
+                                id="nav-menu1-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#nav-menu1"
+                                type="button"
+                                role="tab"
+                                aria-controls="nav-menu1"
+                                aria-selected="false"
+                              >
+                                <p className="body-sm">Team</p>
+                              </button>
+                            )}
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            {auth?.user?.role === "ADMIN" && (
+                              <button
+                                className="nav-link col-12"
+                                id="nav-menu2-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#nav-menu2"
+                                type="button"
+                                role="tab"
+                                aria-controls="nav-menu2"
+                                aria-selected={false}
+                              >
+                                <p className="body-sm">Product</p>
+                              </button>
+                            )}
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            {(auth?.user?.role === "ADMIN" ||
+                              auth?.user?.role === "TECHNICIAN" ||
+                              auth?.user?.role === "ENGINEER") && (
+                              <button
+                                className="nav-link col-12"
+                                id="nav-menu3-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#nav-menu3"
+                                type="button"
+                                role="tab"
+                                aria-controls="nav-menu3"
+                                aria-selected={false}
+                              >
+                                <p className="body-sm">Services</p>
+                              </button>
+                            )}
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            {(auth?.user?.role === "ADMIN" ||
+                              auth?.user?.role === "HR") && (
+                              <button
+                                className="nav-link col-12"
+                                id="nav-menu4-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#nav-menu4"
+                                type="button"
+                                role="tab"
+                                aria-controls="nav-menu4"
+                                aria-selected={auth?.user?.role === "HR"}
+                              >
+                                <p className="body-sm">Career</p>
+                              </button>
+                            )}
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            {auth?.user?.role === "ADMIN" && (
+                              <button
+                                className="nav-link col-12"
+                                id="nav-menu5-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#nav-menu5"
+                                type="button"
+                                role="tab"
+                                aria-controls="nav-menu5"
+                                aria-selected="false"
+                              >
+                                <p className="body-sm">Create User</p>
+                              </button>
+                            )}
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            <button
+                              className="nav-link col-12"
+                              id="nav-menu6-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#nav-menu6"
+                              type="button"
+                              role="tab"
+                              aria-controls="nav-menu6"
+                              aria-selected={auth?.user?.role === undefined}
+                            >
+                              <p className="body-sm">Tasks</p>
+                            </button>
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            <button
+                              className="nav-link col-12"
+                              id="nav-menu7-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#nav-menu7"
+                              type="button"
+                              role="tab"
+                              aria-controls="nav-menu7"
+                              aria-selected="false"
+                            >
+                              <p className="body-sm">Apply Leave</p>
+                            </button>
+                          </div>
+                          <div className="col-xl-3 col-lg-3 col-md-4 col-3 my-2">
+                            <button
+                              className="nav-link col-12"
+                              id="nav-menu8-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#nav-menu8"
+                              type="button"
+                              role="tab"
+                              aria-controls="nav-menu8"
+                              aria-selected="false"
+                            >
+                              <p className="body-sm">Password</p>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </nav>
                 </div>
@@ -157,7 +173,7 @@ const Admin = () => {
               <div className="tab-content" id="nav-tabContent">
                 {auth?.user?.role === "ADMIN" && (
                   <div
-                    className="container tab-pane fade show active"
+                    className="container tab-pane fade"
                     id="nav-menu1"
                     role="tabpanel"
                     aria-labelledby="nav-menu1-tab"
@@ -173,11 +189,7 @@ const Admin = () => {
                 {(auth?.user?.role === "ADMIN" ||
                   auth?.user?.role === "MARKETING") && (
                   <div
-                    className={
-                      auth?.user?.role === "MARKETING"
-                        ? "container tab-pane fade show active"
-                        : "container tab-pane fade"
-                    }
+                    className={"container tab-pane fade"}
                     id="nav-menu2"
                     role="tabpanel"
                     aria-labelledby="nav-menu2-tab"
@@ -193,12 +205,7 @@ const Admin = () => {
                   auth?.user?.role === "TECHNICIAN" ||
                   auth?.user?.role === "ENGINEER") && (
                   <div
-                    className={
-                      auth?.user?.role === "TECHNICIAN" ||
-                      auth?.user?.role === "ENGINEER"
-                        ? "container tab-pane fade show active"
-                        : "container tab-pane fade"
-                    }
+                    className={"container tab-pane fade"}
                     id="nav-menu3"
                     role="tabpanel"
                     aria-labelledby="nav-menu3-tab"
@@ -212,11 +219,7 @@ const Admin = () => {
                 {(auth?.user?.role === "ADMIN" ||
                   auth?.user?.role === "HR") && (
                   <div
-                    className={
-                      auth?.user?.role === "HR"
-                        ? "container tab-pane fade show active"
-                        : "container tab-pane fade"
-                    }
+                    className={"container tab-pane fade"}
                     id="nav-menu4"
                     role="tabpanel"
                     aria-labelledby="nav-menu4-tab"
@@ -241,18 +244,14 @@ const Admin = () => {
                   </div>
                 )}
                 <div
-                  className={
-                    auth?.user?.role
-                      ? "container tab-pane fade"
-                      : "container tab-pane fade show active"
-                  }
+                  className={"container tab-pane fade"}
                   id="nav-menu6"
                   role="tabpanel"
                   aria-labelledby="nav-menu6-tab"
                   tabIndex={0}
                 >
                   <div className="row justify-content-center">
-                   <TaskAdmin />
+                    <TaskAdmin />
                   </div>
                 </div>
                 <div

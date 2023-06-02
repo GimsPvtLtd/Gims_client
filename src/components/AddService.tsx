@@ -27,9 +27,9 @@ const AddService = () => {
       method: "post",
       url: process.env.REACT_APP_BACKEND_URL + "/addservice",
       data: data,
-      headers:{
-      authorization: auth?.token,
-      }
+      headers: {
+        authorization: auth?.token,
+      },
     };
 
     axios(config)
@@ -80,6 +80,7 @@ const AddService = () => {
                 Manufacturing and automation
               </option>
               <option value="Design">Design</option>
+              <option value="Achievement">Achievement / Media</option>
             </select>
           </div>
           <section className="container mt-2">

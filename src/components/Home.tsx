@@ -11,6 +11,7 @@ import desktop from "../assets/Home/desktop-3d.png";
 import apple from "../assets/Home/apple.jpg";
 import Footer from "./Footer";
 import { Product } from "../utils";
+import Gallery from "./Gallery";
 const Home = () => {
   const [data, setData] = React.useState<Product[]>([]);
 
@@ -129,7 +130,7 @@ const Home = () => {
 
       {/* Industry section */}
 
-      <section className="industry-sec pt-5 pb-2">
+      <section className="industry-sec pt-5">
         <div className="container">
           <div className="row">
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 pb-5">
@@ -146,13 +147,14 @@ const Home = () => {
                 .map((product) => {
                   return (
                     <div className="card mt-5">
-                      <img className="card-img-top" src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`} />
+                      <img
+                        className="card-img-top"
+                        src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
+                      />
                       <div className="card-body">
                         <p className="txt-3-bold">{product.name}</p>
                         <p className="body-bold py-2">
-                          {
-                            product.description.split("###")[0]
-                          }
+                          {product.description.split("###")[0]}
                         </p>
                         <div className="banner-links">
                           <a
@@ -169,20 +171,21 @@ const Home = () => {
                 })}
             </div>
             <div className="col-xl-6 col-lg-12 col-md-12 col-12 negative-card">
-            {data
+              {data
                 .filter((_, ind) => {
                   return ind % 2 != 0;
                 })
                 .map((product) => {
                   return (
                     <div className="card mt-5">
-                      <img className="card-img-top" src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`} />
+                      <img
+                        className="card-img-top"
+                        src={`${process.env.REACT_APP_BACKEND_URL}/products/${product.image}`}
+                      />
                       <div className="card-body">
                         <p className="txt-3-bold">{product.name}</p>
                         <p className="body-bold py-2">
-                          {
-                            product.description.split("###")[0]
-                          }
+                          {product.description.split("###")[0]}
                         </p>
                         <div className="banner-links">
                           <a
@@ -208,7 +211,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      <Gallery />
       <Footer />
     </Fragment>
   );
